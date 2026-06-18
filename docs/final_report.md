@@ -3,7 +3,7 @@
 Use this document as the source markdown for the final PDF or Google Doc report.
 Complete it only after `data/scenarios.json` contains 10 unique scenarios and the full evaluation has been run.
 
-All report content must be grounded in `artifacts/evaluation_results.json`. Do not invent scores, averages, examples, or conclusions that are not supported by the evaluation output.
+All report content must be grounded in the evaluation JSON files under `artifacts/`. Do not invent scores, averages, examples, or conclusions that are not supported by the evaluation output.
 
 ## Prompt Summary
 
@@ -33,7 +33,7 @@ Summarize the three custom metrics used in evaluation and how they are scored.
 
 ## Raw Data Reference
 
-- Source file: `artifacts/evaluation_results.json`
+- Source files: the provider/strategy evaluation JSON files under `artifacts/`
 - Optional companion file: `artifacts/evaluation_results.csv` if present
 - Include the evaluation run date, model/configuration details, and any notes needed to interpret the run
 
@@ -52,12 +52,12 @@ Use the raw scenario results to compare the two strategies across all 10 scenari
 Identify the single most important failure mode observed in the full evaluation.
 
 - Failure mode: [fill after review]
-- Evidence: [cite the affected scenarios from `artifacts/evaluation_results.json`]
+- Evidence: [cite the affected scenarios from the evaluation JSON files]
 - Impact: [describe why it matters]
 
 ## Production Recommendation
 
-State which strategy should be recommended for production and why.
+State which provider/strategy combination should be recommended for production and why.
 
 - Recommendation: [choose based on evaluation data]
 - Rationale: [grounded in metric averages and scenario-level behavior]
@@ -65,4 +65,4 @@ State which strategy should be recommended for production and why.
 
 ## Appendix
 
-Optional: paste or summarize the key rows from `artifacts/evaluation_results.json` here for the final report package.
+Optional: paste or summarize the key rows from the evaluation JSON files here for the final report package.

@@ -43,7 +43,8 @@ def test_real_evaluation_smoke_writes_report_and_scores_one_scenario() -> None:
     write_report_json(report, SMOKE_REPORT_PATH)
 
     assert SMOKE_REPORT_PATH.exists()
-    assert report.source_file == SCENARIOS_PATH
-    assert len(report.results) == 2
-    assert sum(len(result.metrics) for strategy_results in report.results.values() for result in strategy_results) == 6
-    assert len(report.aggregates) == 2
+    assert report.source_file == SCENARIOS_PATH.as_posix()
+    assert report.strategy is PromptStrategy.STRUCTURED
+    assert len(report.results) == 1
+    assert len(report.results[0].metrics) == 3
+    assert len(report.metric_averages) == 3

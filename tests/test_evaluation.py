@@ -18,7 +18,7 @@ from src.models import (
     ModelProvider,
     PromptStrategy,
     ReferenceEmail,
-    StrategyScenarioResult,
+    ScenarioEvaluationResult,
 )
 
 
@@ -46,8 +46,7 @@ def _metric_result(metric: MetricName, score: int) -> MetricResult:
 def _metric_definition(metric: MetricName) -> MetricDefinition:
     return MetricDefinition(
         metric=metric,
-        title=metric.value,
-        description=f"{metric.value} description",
+        definition=f"{metric.value} definition",
         rubric=[
             MetricRubricLevel(score=0, description="zero"),
             MetricRubricLevel(score=1, description="one"),
@@ -153,128 +152,48 @@ def test_run_judges_uses_default_structured_path_without_injected_judge(monkeypa
     assert len(results) == 3
 
 
-def test_aggregate_results_computes_per_metric_averages_and_winner() -> None:
-    results = {
-        PromptStrategy.STRUCTURED: [
-            StrategyScenarioResult(
-                scenario_id="s1",
-                generation_prompt="structured prompt s1",
-                generated_email=_generated_email("S1"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 3),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 5),
-                ],
-            ),
-            StrategyScenarioResult(
-                scenario_id="s2",
-                generation_prompt="structured prompt s2",
-                generated_email=_generated_email("S2"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 5),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 5),
-                ],
-            ),
-        ],
-        PromptStrategy.FEW_SHOT: [
-            StrategyScenarioResult(
-                scenario_id="s1",
-                generation_prompt="few-shot prompt s1",
-                generated_email=_generated_email("F1"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 4),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 4),
-                ],
-            ),
-        ],
-    }
+def test_aggregate_results_computes_per_metric_and_overall_averages() -> None:
+    results = [
+        ScenarioEvaluationResult(
+            scenario_id="s1",
+            metrics=[
+                _metric_result(MetricName.FACT_COVERAGE, 3),
+                _metric_result(MetricName.TONE_ALIGNMENT, 4),
+                _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 5),
+            ],
+        ),
+        ScenarioEvaluationResult(
+            scenario_id="s2",
+            metrics=[
+                _metric_result(MetricName.FACT_COVERAGE, 5),
+                _metric_result(MetricName.TONE_ALIGNMENT, 4),
+                _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 5),
+            ],
+        ),
+    ]
 
-    aggregates, winner = evaluation_module.aggregate_results(results)
+    metric_averages, overall_average = evaluation_module.aggregate_results(results)
 
-    assert [aggregate.strategy for aggregate in aggregates] == list(PromptStrategy)
-    assert winner is PromptStrategy.STRUCTURED
-
-    structured = aggregates[0]
-    assert structured.metric_averages == {
+    assert metric_averages == {
         MetricName.FACT_COVERAGE: pytest.approx(4.0),
         MetricName.TONE_ALIGNMENT: pytest.approx(4.0),
         MetricName.PROFESSIONAL_STRUCTURE: pytest.approx(5.0),
     }
-    assert structured.overall_average == pytest.approx(13 / 3)
+    assert overall_average == pytest.approx(13 / 3)
 
-    few_shot = aggregates[1]
-    assert few_shot.metric_averages == {
-        MetricName.FACT_COVERAGE: pytest.approx(4.0),
-        MetricName.TONE_ALIGNMENT: pytest.approx(4.0),
-        MetricName.PROFESSIONAL_STRUCTURE: pytest.approx(4.0),
+
+def test_aggregate_results_returns_zero_averages_for_no_results() -> None:
+    metric_averages, overall_average = evaluation_module.aggregate_results([])
+
+    assert metric_averages == {
+        MetricName.FACT_COVERAGE: 0.0,
+        MetricName.TONE_ALIGNMENT: 0.0,
+        MetricName.PROFESSIONAL_STRUCTURE: 0.0,
     }
-    assert few_shot.overall_average == pytest.approx(4.0)
+    assert overall_average == 0.0
 
 
-def test_aggregate_results_rejects_missing_strategy_when_results_exist() -> None:
-    results = {
-        PromptStrategy.STRUCTURED: [
-            StrategyScenarioResult(
-                scenario_id="s1",
-                generation_prompt="structured prompt s1",
-                generated_email=_generated_email("S1"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 4),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 4),
-                ],
-            )
-        ]
-    }
-
-    with pytest.raises(ValueError, match="missing: few_shot"):
-        evaluation_module.aggregate_results(results)
-
-
-def test_aggregate_results_returns_empty_aggregates_for_no_results() -> None:
-    aggregates, winner = evaluation_module.aggregate_results({})
-
-    assert aggregates == []
-    assert winner is None
-
-
-def test_aggregate_results_uses_prompt_strategy_order_for_ties() -> None:
-    tied_results = {
-        PromptStrategy.STRUCTURED: [
-            StrategyScenarioResult(
-                scenario_id="s1",
-                generation_prompt="structured prompt s1",
-                generated_email=_generated_email("S1"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 4),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 4),
-                ],
-            )
-        ],
-        PromptStrategy.FEW_SHOT: [
-            StrategyScenarioResult(
-                scenario_id="s1",
-                generation_prompt="few-shot prompt s1",
-                generated_email=_generated_email("F1"),
-                metrics=[
-                    _metric_result(MetricName.FACT_COVERAGE, 4),
-                    _metric_result(MetricName.TONE_ALIGNMENT, 4),
-                    _metric_result(MetricName.PROFESSIONAL_STRUCTURE, 4),
-                ],
-            )
-        ],
-    }
-
-    aggregates, winner = evaluation_module.aggregate_results(tied_results)
-
-    assert winner is PromptStrategy.STRUCTURED
-    assert [aggregate.strategy for aggregate in aggregates] == list(PromptStrategy)
-
-
-def test_run_evaluation_uses_selected_scenarios_and_strategies(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_run_evaluation_uses_selected_scenarios_strategy_and_provider(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     scenarios_file = tmp_path / "scenarios.json"
     scenarios_file.write_text(
         json.dumps(
@@ -324,34 +243,46 @@ def test_run_evaluation_uses_selected_scenarios_and_strategies(monkeypatch: pyte
     monkeypatch.setattr(evaluation_module, "generate_email", fake_generate_email)
     monkeypatch.setattr(evaluation_module, "run_judges", fake_run_judges)
 
-    report = evaluation_module.run_evaluation(scenarios_file, limit=1, provider=ModelProvider.OPENAI)
+    report = evaluation_module.run_evaluation(
+        scenarios_file,
+        limit=1,
+        provider=ModelProvider.OPENAI,
+        strategy=PromptStrategy.FEW_SHOT,
+    )
 
-    assert report.source_file == scenarios_file
+    assert report.source_file == scenarios_file.as_posix()
+    assert report.provider is ModelProvider.OPENAI
+    assert report.strategy is PromptStrategy.FEW_SHOT
     assert [definition.metric for definition in report.metric_definitions] == list(MetricName)
-    assert list(report.results) == list(PromptStrategy)
-    assert [result.scenario_id for result in report.results[PromptStrategy.STRUCTURED]] == ["alpha"]
-    assert [result.scenario_id for result in report.results[PromptStrategy.FEW_SHOT]] == ["alpha"]
-    assert report.results[PromptStrategy.STRUCTURED][0].generation_prompt == "prompt:alpha:structured"
-    assert report.results[PromptStrategy.FEW_SHOT][0].generation_prompt == "prompt:alpha:few_shot"
+    assert [result.scenario_id for result in report.results] == ["alpha"]
+    assert [metric.score for metric in report.results[0].metrics] == [5, 4, 3]
     assert generated_calls == [
-        ("prompt:alpha:structured", ModelProvider.OPENAI),
         ("prompt:alpha:few_shot", ModelProvider.OPENAI),
     ]
     assert judged_calls == [
-        ("alpha:alpha:structured", ModelProvider.OPENAI),
         ("alpha:alpha:few_shot", ModelProvider.OPENAI),
     ]
-    assert len(report.aggregates) == 2
-    assert report.winner is PromptStrategy.STRUCTURED
+    assert report.metric_averages == {
+        MetricName.FACT_COVERAGE: pytest.approx(5.0),
+        MetricName.TONE_ALIGNMENT: pytest.approx(4.0),
+        MetricName.PROFESSIONAL_STRUCTURE: pytest.approx(3.0),
+    }
+    assert report.overall_average == pytest.approx(4.0)
 
 
 def test_write_report_json_creates_parent_directory_and_writes_report(tmp_path: Path) -> None:
     report = EvaluationReport(
-        source_file=tmp_path / "scenarios.json",
+        source_file="data/scenarios.json",
+        provider=ModelProvider.OPENAI,
+        strategy=PromptStrategy.FEW_SHOT,
         metric_definitions=[_metric_definition(metric) for metric in MetricName],
-        results={},
-        aggregates=[],
-        winner=None,
+        results=[],
+        metric_averages={
+            MetricName.FACT_COVERAGE: 4.0,
+            MetricName.TONE_ALIGNMENT: 4.0,
+            MetricName.PROFESSIONAL_STRUCTURE: 4.0,
+        },
+        overall_average=4.0,
     )
     output_path = tmp_path / "nested" / "evaluation.json"
 
@@ -359,8 +290,15 @@ def test_write_report_json_creates_parent_directory_and_writes_report(tmp_path: 
 
     written = json.loads(output_path.read_text(encoding="utf-8"))
     assert output_path.exists()
-    assert written["source_file"].endswith("scenarios.json")
+    assert written["source_file"] == "data/scenarios.json"
+    assert written["provider"] == "openai"
+    assert written["strategy"] == "few_shot"
     assert [definition["metric"] for definition in written["metric_definitions"]] == [metric.value for metric in MetricName]
-    assert written["results"] == {}
-    assert written["aggregates"] == []
-    assert written["winner"] is None
+    assert set(written["metric_definitions"][0]) == {"metric", "definition", "rubric"}
+    assert written["results"] == []
+    assert written["metric_averages"] == {
+        "fact_coverage": 4.0,
+        "tone_alignment": 4.0,
+        "professional_structure": 4.0,
+    }
+    assert written["overall_average"] == 4.0

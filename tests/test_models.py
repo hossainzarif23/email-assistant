@@ -12,10 +12,10 @@ from src.models import (
     MetricResult,
     MetricDefinition,
     MetricRubricLevel,
+    ModelProvider,
     PromptStrategy,
     ReferenceEmail,
-    StrategyAggregate,
-    StrategyScenarioResult,
+    ScenarioEvaluationResult,
 )
 
 
@@ -142,10 +142,8 @@ def test_strategy_scenario_result_requires_exactly_three_unique_metrics() -> Non
     ]
 
     with pytest.raises(ValidationError) as exc_info:
-        StrategyScenarioResult(
+        ScenarioEvaluationResult(
             scenario_id="scenario-1",
-            generation_prompt="Prompt",
-            generated_email=GeneratedEmail(subject="Subject", content="Body"),
             metrics=metrics,
         )
 
@@ -157,10 +155,8 @@ def test_strategy_scenario_result_requires_exactly_three_unique_metrics() -> Non
 @pytest.mark.parametrize("metrics", [[], [MetricResult(metric=MetricName.FACT_COVERAGE, score=5, reason="Covered.")]])
 def test_strategy_scenario_result_rejects_wrong_metric_count(metrics: list[MetricResult]) -> None:
     with pytest.raises(ValidationError) as exc_info:
-        StrategyScenarioResult(
+        ScenarioEvaluationResult(
             scenario_id="scenario-1",
-            generation_prompt="Prompt",
-            generated_email=GeneratedEmail(subject="Subject", content="Body"),
             metrics=metrics,
         )
 
@@ -169,41 +165,53 @@ def test_strategy_scenario_result_rejects_wrong_metric_count(metrics: list[Metri
     assert error["type"] == "too_short"
 
 
-@pytest.mark.parametrize(
-    ("metric_averages", "overall_average", "expected_loc"),
-    [
-        ({MetricName.FACT_COVERAGE: -0.1}, 3.0, ("metric_averages", MetricName.FACT_COVERAGE.value)),
-        ({MetricName.FACT_COVERAGE: 5.1}, 3.0, ("metric_averages", MetricName.FACT_COVERAGE.value)),
-        ({MetricName.FACT_COVERAGE: 4.0}, -0.1, ("overall_average",)),
-        ({MetricName.FACT_COVERAGE: 4.0}, 5.1, ("overall_average",)),
-    ],
-)
-def test_strategy_aggregate_rejects_averages_outside_score_range(
-    metric_averages: dict[MetricName, float],
-    overall_average: float,
-    expected_loc: tuple[str, ...],
-) -> None:
+def test_evaluation_report_requires_metric_average_for_each_metric() -> None:
     with pytest.raises(ValidationError) as exc_info:
-        StrategyAggregate(
+        EvaluationReport(
+            source_file="data/scenarios.json",
+            provider=ModelProvider.OPENAI,
             strategy=PromptStrategy.FEW_SHOT,
-            metric_averages=metric_averages,
-            overall_average=overall_average,
-        )
-
-    error = exc_info.value.errors()[0]
-    assert error["loc"] == expected_loc
-    assert error["type"] in {"greater_than_equal", "less_than_equal"}
-
-
-def test_strategy_aggregate_rejects_missing_metric_average() -> None:
-    with pytest.raises(ValidationError) as exc_info:
-        StrategyAggregate(
-            strategy=PromptStrategy.FEW_SHOT,
-            metric_averages={
-                MetricName.FACT_COVERAGE: 4.0,
-                MetricName.PROFESSIONAL_STRUCTURE: 3.5,
-            },
-            overall_average=3.75,
+            metric_definitions=[
+                MetricDefinition(
+                    metric=MetricName.FACT_COVERAGE,
+                    definition="Definition",
+                    rubric=[
+                        MetricRubricLevel(score=0, description="zero"),
+                        MetricRubricLevel(score=1, description="one"),
+                        MetricRubricLevel(score=2, description="two"),
+                        MetricRubricLevel(score=3, description="three"),
+                        MetricRubricLevel(score=4, description="four"),
+                        MetricRubricLevel(score=5, description="five"),
+                    ],
+                ),
+                MetricDefinition(
+                    metric=MetricName.TONE_ALIGNMENT,
+                    definition="Definition",
+                    rubric=[
+                        MetricRubricLevel(score=0, description="zero"),
+                        MetricRubricLevel(score=1, description="one"),
+                        MetricRubricLevel(score=2, description="two"),
+                        MetricRubricLevel(score=3, description="three"),
+                        MetricRubricLevel(score=4, description="four"),
+                        MetricRubricLevel(score=5, description="five"),
+                    ],
+                ),
+                MetricDefinition(
+                    metric=MetricName.PROFESSIONAL_STRUCTURE,
+                    definition="Definition",
+                    rubric=[
+                        MetricRubricLevel(score=0, description="zero"),
+                        MetricRubricLevel(score=1, description="one"),
+                        MetricRubricLevel(score=2, description="two"),
+                        MetricRubricLevel(score=3, description="three"),
+                        MetricRubricLevel(score=4, description="four"),
+                        MetricRubricLevel(score=5, description="five"),
+                    ],
+                ),
+            ],
+            results=[],
+            metric_averages={MetricName.FACT_COVERAGE: 4.0},
+            overall_average=4.0,
         )
 
     error = exc_info.value.errors()[0]
@@ -211,14 +219,15 @@ def test_strategy_aggregate_rejects_missing_metric_average() -> None:
     assert error["type"] == "value_error"
 
 
-def test_evaluation_report_defaults_winner_to_none() -> None:
+def test_evaluation_report_accepts_single_provider_strategy_shape() -> None:
     report = EvaluationReport(
-        source_file=__file__,
+        source_file="data/scenarios.json",
+        provider=ModelProvider.OPENAI,
+        strategy=PromptStrategy.FEW_SHOT,
         metric_definitions=[
             MetricDefinition(
                 metric=MetricName.FACT_COVERAGE,
-                title="Fact Coverage",
-                description="Measures whether the generated email includes all required key facts accurately and naturally.",
+                definition="Measures whether the generated email includes all required key facts accurately and naturally.",
                 rubric=[
                     MetricRubricLevel(score=0, description="zero"),
                     MetricRubricLevel(score=1, description="one"),
@@ -230,8 +239,7 @@ def test_evaluation_report_defaults_winner_to_none() -> None:
             ),
             MetricDefinition(
                 metric=MetricName.TONE_ALIGNMENT,
-                title="Tone Alignment",
-                description="Measures whether the generated email matches the requested tone in context.",
+                definition="Measures whether the generated email matches the requested tone in context.",
                 rubric=[
                     MetricRubricLevel(score=0, description="zero"),
                     MetricRubricLevel(score=1, description="one"),
@@ -243,8 +251,7 @@ def test_evaluation_report_defaults_winner_to_none() -> None:
             ),
             MetricDefinition(
                 metric=MetricName.PROFESSIONAL_STRUCTURE,
-                title="Professional Email Structure",
-                description="Measures whether the output works as a professional email, including subject relevance, salutation, body organization, clear purpose, call to action where appropriate, and closing/signature.",
+                definition="Measures whether the output works as a professional email, including subject relevance, salutation, body organization, clear purpose, call to action where appropriate, and closing/signature.",
                 rubric=[
                     MetricRubricLevel(score=0, description="zero"),
                     MetricRubricLevel(score=1, description="one"),
@@ -255,11 +262,17 @@ def test_evaluation_report_defaults_winner_to_none() -> None:
                 ],
             ),
         ],
-        results={},
-        aggregates=[],
+        results=[],
+        metric_averages={
+            MetricName.FACT_COVERAGE: 4.0,
+            MetricName.TONE_ALIGNMENT: 4.0,
+            MetricName.PROFESSIONAL_STRUCTURE: 4.0,
+        },
+        overall_average=4.0,
     )
 
-    assert report.winner is None
+    assert report.provider is ModelProvider.OPENAI
+    assert report.strategy is PromptStrategy.FEW_SHOT
 
 
 def test_enums_have_expected_values() -> None:

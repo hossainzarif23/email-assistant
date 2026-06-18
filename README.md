@@ -57,34 +57,32 @@ Smoke test a single scenario:
 .\venv\Scripts\python -m src.cli evaluate --limit 1
 ```
 
-Run the full evaluation and write structured output to `artifacts/evaluation_results.json`:
+Run the full evaluation for one provider and one strategy:
 
 ```powershell
-.\venv\Scripts\python -m src.cli evaluate --scenarios data/scenarios.json --output artifacts/evaluation_results.json
+.\venv\Scripts\python -m src.cli evaluate --scenarios data/scenarios.json --provider gemini --strategy structured --output artifacts/gemini-structured-evaluation.json
 ```
 
-Use `--provider gemini` or `--provider openai` to run generation and judging with the selected provider. The evaluation report JSON includes per-scenario results, metric definitions, strategy aggregates, and the winner.
+Use `--provider gemini` or `--provider openai` to select the model provider. Use `--strategy structured` or `--strategy few_shot` to select the prompt strategy. Each evaluation report JSON represents one provider and one strategy, and includes the source file, metric definitions and rubrics, per-scenario metric scores, per-metric averages, and overall average.
 
 ## Assessment Data
 
-`data/scenarios.json` is user-maintained. The checked-in file is currently a smoke-test sample only.
-Before the final assessment run or submission, expand or replace it with 10 unique scenarios, each with intent, key facts, tone, and a human reference email.
-The smoke-test sample is not sufficient for final evaluation.
+`data/scenarios.json` contains 10 unique scenarios, each with intent, key facts, tone, and a human reference email.
 
 ## Final Report
 
-Complete the final report only after `data/scenarios.json` contains all 10 unique scenarios and the full evaluation has been run.
+Complete the final report only after all provider and strategy combinations needed for comparison have been run.
 
-Use `artifacts/evaluation_results.json` as the raw data source for the report. Then update [docs/final_report.md](docs/final_report.md) with:
+Use the evaluation JSON files under `artifacts/` as the raw data source for the report. Then update [docs/final_report.md](docs/final_report.md) with:
 
 - a short prompt summary
 - the metric definitions and logic
 - a reference to the raw evaluation data
-- comparative analysis between the two strategies
+- comparative analysis between the evaluated providers and strategies
 - the biggest failure mode
 - the production recommendation
 
-Keep the report grounded in the evaluated output. Do not invent metric scores, averages, or examples that are not present in `artifacts/evaluation_results.json`.
+Keep the report grounded in the evaluated output. Do not invent metric scores, averages, or examples that are not present in the evaluation artifacts.
 
 ## Prompt Strategy
 
@@ -109,6 +107,6 @@ The evaluation uses three custom LLM-as-judge metrics:
 
 Each judge scores on a 0-5 scale and returns only a numeric score plus a short reason. See [docs/evaluation_metrics.md](docs/evaluation_metrics.md) for the rubric logic and separation strategy.
 
-## Provider Comparison Rationale
+## Comparison Rationale
 
-Both prompt strategies are evaluated with the same provider and model configuration for a given run so the comparison isolates prompt design instead of model capability. Gemini is the default provider. OpenAI can be selected with `--provider openai`.
+Each evaluation run covers one provider and one prompt strategy. Run the same 10 scenarios and three metrics for each combination being compared, then write the final comparison from those raw evaluation artifacts.

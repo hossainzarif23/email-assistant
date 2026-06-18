@@ -55,6 +55,7 @@ def test_build_parser_supports_evaluate_subcommand_with_defaults() -> None:
     assert namespace.scenario_id is None
     assert namespace.output == Path("artifacts/evaluation_results.json")
     assert namespace.provider == ModelProvider.GEMINI.value
+    assert namespace.strategy == PromptStrategy.STRUCTURED.value
 
 
 def test_generate_help_uses_literal_strategy_values(capsys: pytest.CaptureFixture[str]) -> None:
@@ -170,11 +171,13 @@ def test_main_evaluate_invokes_report_writer_and_prints_output_path(
         limit: int | None = None,
         scenario_id: str | None = None,
         provider: ModelProvider = ModelProvider.GEMINI,
+        strategy: PromptStrategy = PromptStrategy.STRUCTURED,
     ) -> object:
         observed["path"] = path
         observed["limit"] = limit
         observed["scenario_id"] = scenario_id
         observed["provider"] = provider
+        observed["strategy"] = strategy
         return report
 
     def fake_write_report_json(report_arg: object, output_arg: Path) -> None:
@@ -197,6 +200,8 @@ def test_main_evaluate_invokes_report_writer_and_prints_output_path(
             str(output_path),
             "--provider",
             "openai",
+            "--strategy",
+            "few_shot",
         ]
     )
 
@@ -206,6 +211,7 @@ def test_main_evaluate_invokes_report_writer_and_prints_output_path(
         "limit": 1,
         "scenario_id": "demo",
         "provider": ModelProvider.OPENAI,
+        "strategy": PromptStrategy.FEW_SHOT,
         "report": report,
         "output": output_path,
     }

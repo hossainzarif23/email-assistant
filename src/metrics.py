@@ -4,8 +4,7 @@ from src.models import MetricDefinition, MetricName, MetricRubricLevel
 METRIC_DEFINITIONS: list[MetricDefinition] = [
     MetricDefinition(
         metric=MetricName.FACT_COVERAGE,
-        title="Fact Coverage",
-        description="Measures whether the generated email includes all required key facts accurately and naturally.",
+        definition="Measures whether the generated email includes all required key facts accurately and naturally.",
         rubric=[
             MetricRubricLevel(score=0, description="The email ignores the required facts or contradicts them."),
             MetricRubricLevel(score=1, description="Only a tiny fragment of one required fact appears."),
@@ -17,8 +16,7 @@ METRIC_DEFINITIONS: list[MetricDefinition] = [
     ),
     MetricDefinition(
         metric=MetricName.TONE_ALIGNMENT,
-        title="Tone Alignment",
-        description="Measures whether the generated email matches the requested tone in context.",
+        definition="Measures whether the generated email matches the requested tone in context.",
         rubric=[
             MetricRubricLevel(score=0, description="The tone is absent, opposite of the requested tone, or unusable for the context."),
             MetricRubricLevel(score=1, description="The tone is very far from the requested tone."),
@@ -30,8 +28,7 @@ METRIC_DEFINITIONS: list[MetricDefinition] = [
     ),
     MetricDefinition(
         metric=MetricName.PROFESSIONAL_STRUCTURE,
-        title="Professional Email Structure",
-        description="Measures whether the output works as a professional email.",
+        definition="Measures whether the output works as a professional email.",
         rubric=[
             MetricRubricLevel(score=0, description="The output is not usable as an email."),
             MetricRubricLevel(score=1, description="It barely resembles a professional email or collapses greeting, body, closing, and signature into a flat single paragraph."),

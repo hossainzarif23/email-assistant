@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from pathlib import Path
 from typing import Annotated
 
 from pydantic import BaseModel, Field, StringConstraints, field_validator, model_validator
@@ -72,8 +71,7 @@ class MetricRubricLevel(BaseModel):
 
 class MetricDefinition(BaseModel):
     metric: MetricName
-    title: NonEmptyStr
-    description: NonEmptyStr
+    definition: NonEmptyStr
     rubric: list[MetricRubricLevel] = Field(min_length=6, max_length=6)
 
     @model_validator(mode="after")
@@ -85,14 +83,12 @@ class MetricDefinition(BaseModel):
         return self
 
 
-class StrategyScenarioResult(BaseModel):
+class ScenarioEvaluationResult(BaseModel):
     scenario_id: NonEmptyStr
-    generation_prompt: NonEmptyStr
-    generated_email: GeneratedEmail
     metrics: list[MetricResult] = Field(min_length=3, max_length=3)
 
     @model_validator(mode="after")
-    def metrics_must_have_unique_names(self) -> StrategyScenarioResult:
+    def metrics_must_have_unique_names(self) -> ScenarioEvaluationResult:
         seen: set[MetricName] = set()
         for metric_result in self.metrics:
             if metric_result.metric in seen:
@@ -101,27 +97,23 @@ class StrategyScenarioResult(BaseModel):
         return self
 
 
-class StrategyAggregate(BaseModel):
+class EvaluationReport(BaseModel):
+    source_file: NonEmptyStr
+    provider: ModelProvider
     strategy: PromptStrategy
+    metric_definitions: list[MetricDefinition] = Field(min_length=3, max_length=3)
+    results: list[ScenarioEvaluationResult]
     metric_averages: dict[MetricName, Annotated[float, Field(ge=0, le=5)]]
     overall_average: Annotated[float, Field(ge=0, le=5)]
-
-    @model_validator(mode="after")
-    def metric_averages_must_cover_all_metrics(self) -> StrategyAggregate:
-        if set(self.metric_averages.keys()) != set(MetricName):
-            raise ValueError("metric_averages must include exactly one entry for each MetricName")
-        return self
-
-
-class EvaluationReport(BaseModel):
-    source_file: Path
-    metric_definitions: list[MetricDefinition] = Field(min_length=3, max_length=3)
-    results: dict[PromptStrategy, list[StrategyScenarioResult]]
-    aggregates: list[StrategyAggregate]
-    winner: PromptStrategy | None = None
 
     @model_validator(mode="after")
     def metric_definitions_must_cover_all_metrics(self) -> EvaluationReport:
         if {definition.metric for definition in self.metric_definitions} != set(MetricName):
             raise ValueError("metric_definitions must include exactly one entry for each MetricName")
+        return self
+
+    @model_validator(mode="after")
+    def metric_averages_must_cover_all_metrics(self) -> EvaluationReport:
+        if set(self.metric_averages.keys()) != set(MetricName):
+            raise ValueError("metric_averages must include exactly one entry for each MetricName")
         return self

@@ -38,6 +38,11 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate_parser.add_argument("--scenario-id")
     evaluate_parser.add_argument("--output", type=Path, default=Path("artifacts/evaluation_results.json"))
     evaluate_parser.add_argument(
+        "--strategy",
+        choices=[item.value for item in PromptStrategy],
+        default=PromptStrategy.STRUCTURED.value,
+    )
+    evaluate_parser.add_argument(
         "--provider",
         choices=[item.value for item in ModelProvider],
         default=ModelProvider.GEMINI.value,
@@ -78,6 +83,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             limit=args.limit,
             scenario_id=args.scenario_id,
             provider=ModelProvider(args.provider),
+            strategy=PromptStrategy(args.strategy),
         )
         write_report_json(report, args.output)
         print(args.output)

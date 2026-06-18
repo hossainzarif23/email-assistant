@@ -14,8 +14,7 @@ from src.models import (
     MetricResult,
     ModelProvider,
     PromptStrategy,
-    StrategyAggregate,
-    StrategyScenarioResult,
+    ScenarioEvaluationResult,
 )
 from src.metrics import METRIC_DEFINITIONS
 from src.prompts import build_generation_prompt, build_judge_prompt
@@ -46,37 +45,19 @@ def run_judges(
     return results
 
 
-def aggregate_results(results: dict[PromptStrategy, list[StrategyScenarioResult]]) -> tuple[list[StrategyAggregate], PromptStrategy | None]:
-    if not any(results.values()):
-        return [], None
+def aggregate_results(results: list[ScenarioEvaluationResult]) -> tuple[dict[MetricName, float], float]:
+    metric_averages: dict[MetricName, float] = {}
+    for metric in MetricName:
+        scores = [
+            metric_result.score
+            for result in results
+            for metric_result in result.metrics
+            if metric_result.metric is metric
+        ]
+        metric_averages[metric] = sum(scores) / len(scores) if scores else 0.0
 
-    missing_strategies = [strategy.value for strategy in PromptStrategy if not results.get(strategy)]
-    if missing_strategies:
-        raise ValueError(f"results must include both prompt strategies; missing: {', '.join(missing_strategies)}")
-
-    aggregates: list[StrategyAggregate] = []
-    for strategy in PromptStrategy:
-        metric_averages: dict[MetricName, float] = {}
-        for metric in MetricName:
-            scores = [
-                metric_result.score
-                for result in results[strategy]
-                for metric_result in result.metrics
-                if metric_result.metric is metric
-            ]
-            metric_averages[metric] = sum(scores) / len(scores) if scores else 0.0
-
-        overall_average = sum(metric_averages.values()) / len(metric_averages)
-        aggregates.append(
-            StrategyAggregate(
-                strategy=strategy,
-                metric_averages=metric_averages,
-                overall_average=overall_average,
-            )
-        )
-
-    winner = max(aggregates, key=lambda aggregate: aggregate.overall_average).strategy
-    return aggregates, winner
+    overall_average = sum(metric_averages.values()) / len(metric_averages)
+    return metric_averages, overall_average
 
 
 def run_evaluation(
@@ -84,6 +65,7 @@ def run_evaluation(
     limit: int | None = None,
     scenario_id: str | None = None,
     provider: ModelProvider = ModelProvider.GEMINI,
+    strategy: PromptStrategy = PromptStrategy.STRUCTURED,
 ) -> EvaluationReport:
     scenarios = load_scenarios(scenarios_path)
     if scenario_id is not None:
@@ -91,27 +73,26 @@ def run_evaluation(
     if limit is not None:
         scenarios = scenarios[:limit]
 
-    results: dict[PromptStrategy, list[StrategyScenarioResult]] = {strategy: [] for strategy in PromptStrategy}
-    for strategy in PromptStrategy:
-        for scenario in scenarios:
-            generation_prompt = build_generation_prompt(scenario, strategy)
-            result = generate_email(generation_prompt, provider)
-            results[strategy].append(
-                StrategyScenarioResult(
-                    scenario_id=scenario.id,
-                    generation_prompt=generation_prompt,
-                    generated_email=result,
-                    metrics=run_judges(scenario, result, provider),
-                )
+    results: list[ScenarioEvaluationResult] = []
+    for scenario in scenarios:
+        generation_prompt = build_generation_prompt(scenario, strategy)
+        result = generate_email(generation_prompt, provider)
+        results.append(
+            ScenarioEvaluationResult(
+                scenario_id=scenario.id,
+                metrics=run_judges(scenario, result, provider),
             )
+        )
 
-    aggregates, winner = aggregate_results(results)
+    metric_averages, overall_average = aggregate_results(results)
     return EvaluationReport(
-        source_file=scenarios_path,
+        source_file=scenarios_path.as_posix(),
+        provider=provider,
+        strategy=strategy,
         metric_definitions=METRIC_DEFINITIONS,
         results=results,
-        aggregates=aggregates,
-        winner=winner,
+        metric_averages=metric_averages,
+        overall_average=overall_average,
     )
 
 
