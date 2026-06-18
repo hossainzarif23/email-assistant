@@ -147,7 +147,7 @@ def test_run_judges_uses_default_structured_path_without_injected_judge(monkeypa
     assert observed["built"] is True
     assert observed["provider"] is ModelProvider.GEMINI
     assert observed["schema"] is JudgeScore
-    assert observed["kwargs"] == {}
+    assert observed["kwargs"] == {"method": "function_calling"}
     assert len(observed["prompts"]) == 3
     assert len(results) == 3
 

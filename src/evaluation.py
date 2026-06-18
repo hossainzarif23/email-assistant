@@ -4,7 +4,7 @@ from pathlib import Path
 from pydantic import TypeAdapter
 
 from src.generator import generate_email
-from src.llm import build_judge_llm
+from src.llm import build_openai_judge_llm
 from src.models import (
     EmailScenario,
     EvaluationReport,
@@ -27,13 +27,10 @@ def load_scenarios(path: Path) -> list[EmailScenario]:
 
 def run_judges(
     scenario: EmailScenario,
-    generated_email: GeneratedEmail,
-    provider: ModelProvider = ModelProvider.GEMINI,
+    generated_email: GeneratedEmail
 ) -> list[MetricResult]:
-    if provider is ModelProvider.OPENAI:
-        structured_judge = build_judge_llm(provider).with_structured_output(JudgeScore, method="function_calling")
-    else:
-        structured_judge = build_judge_llm(provider).with_structured_output(JudgeScore)
+    structured_judge = build_openai_judge_llm().with_structured_output(JudgeScore, method="function_calling")
+    
     results: list[MetricResult] = []
 
     for metric in MetricName:
@@ -80,7 +77,7 @@ def run_evaluation(
         results.append(
             ScenarioEvaluationResult(
                 scenario_id=scenario.id,
-                metrics=run_judges(scenario, result, provider),
+                metrics=run_judges(scenario, result),
             )
         )
 

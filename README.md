@@ -65,6 +65,8 @@ Run the full evaluation for one provider and one strategy:
 
 Use `--provider gemini` or `--provider openai` to select the model provider. Use `--strategy structured` or `--strategy few_shot` to select the prompt strategy. Each evaluation report JSON represents one provider and one strategy, and includes the source file, metric definitions and rubrics, per-scenario metric scores, per-metric averages, and overall average.
 
+The judge is fixed to `gpt-5.4-mini` for every evaluation run, regardless of the generation provider or prompt strategy, so score comparisons stay on the same judge model.
+
 ## Assessment Data
 
 `data/scenarios.json` contains 10 unique scenarios, each with intent, key facts, tone, and a human reference email.

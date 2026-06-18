@@ -32,21 +32,20 @@ def test_build_generation_llm_uses_env_model_and_generation_settings(monkeypatch
 def test_build_judge_llm_uses_env_model_and_judge_settings(monkeypatch: pytest.MonkeyPatch) -> None:
     calls: list[bool] = []
     monkeypatch.setattr(llm_module, "load_dotenv", lambda: calls.append(True))
-    monkeypatch.setenv("GEMINI_MODEL", "gemini-test-model")
-    monkeypatch.setenv("GOOGLE_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1")
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
 
     model = build_judge_llm(ModelProvider.GEMINI)
 
-    assert isinstance(model, ChatGoogleGenerativeAI)
+    assert isinstance(model, ChatOpenAI)
     assert calls == [True]
     dumped = model.model_dump()
-    assert dumped["model"] == "gemini-test-model"
-    assert dumped["google_api_key"].get_secret_value() == "test-key"
-    assert dumped["temperature"] == 0.1
-    assert dumped["top_p"] == 0.2
-    assert dumped["top_k"] == 1
-    assert dumped["max_output_tokens"] == 32768
-    assert dumped["thinking_level"] == "medium"
+    assert dumped["model_name"] == "gpt-5.4-mini"
+    assert dumped["openai_api_key"].get_secret_value() == "test-key"
+    assert dumped["temperature"] is None
+    assert dumped["top_p"] is None
+    assert dumped["max_tokens"] == 32768
+    assert dumped["reasoning"] == {"effort": "medium"}
 
 
 def test_build_generation_llm_supports_openai_provider(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -79,10 +78,10 @@ def test_build_judge_llm_supports_openai_provider(monkeypatch: pytest.MonkeyPatc
     assert isinstance(model, ChatOpenAI)
     assert calls == [True]
     dumped = model.model_dump()
-    assert dumped["model_name"] == "gpt-4.1"
+    assert dumped["model_name"] == "gpt-5.4-mini"
     assert dumped["openai_api_key"].get_secret_value() == "test-key"
-    assert dumped["temperature"] == 0.1
-    assert dumped["top_p"] == 0.2
+    assert dumped["temperature"] is None
+    assert dumped["top_p"] is None
     assert dumped["max_tokens"] == 32768
     assert dumped["reasoning"] == {"effort": "medium"}
 
