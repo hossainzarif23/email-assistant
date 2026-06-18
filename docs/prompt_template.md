@@ -124,3 +124,48 @@ Scenario data:
 Expected output:
 {email_json}
 ```
+
+The exact examples used by the current implementation are:
+
+### Example 1
+
+```markdown
+**Intent:** Follow up after a client meeting
+
+**Key facts:**
+- Thank the recipient for their time
+- Send the revised timeline
+- Confirm that the next checkpoint is Wednesday
+
+**Tone:** warm and professional
+**Sender:** Jordan Lee
+**Recipient:** Maya Patel
+```
+
+```json
+{
+  "subject": "Follow-up and revised timeline",
+  "content": "Hi Maya,\n\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\n\nPlease let me know if you have any questions before then.\n\nBest,\nJordan"
+}
+```
+
+### Example 2
+
+```markdown
+**Intent:** Request approval for a project budget
+
+**Key facts:**
+- Approval is needed by Friday
+- The budget remains within $8,000
+- Approval keeps the project on schedule
+
+**Tone:** concise and polite
+**Affiliation:** Northstar Consulting
+```
+
+```json
+{
+  "subject": "Budget approval requested by Friday",
+  "content": "Hello [Recipient Name],\n\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\n\nBest regards,\n[Your Name]\nNorthstar Consulting"
+}
+```
