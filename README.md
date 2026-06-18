@@ -19,9 +19,13 @@ GEMINI_MODEL=gemini-3.1-flash-lite
 
 OPENAI_API_KEY=your_openai_api_key
 OPENAI_MODEL=gpt-5.4-mini
+
+LANGSMITH_TRACING=true
+LANGSMITH_PROJECT=email-generator
+LANGSMITH_API_KEY=your_langsmith_api_key
 ```
 
-Only set the API key for the provider you plan to use. `GEMINI_MODEL` and `OPENAI_MODEL` are optional and default to the models shown above. The judge model is fixed to `gpt-5.4-mini`, so `OPENAI_MODEL` only affects OpenAI generation.
+Only set the API key for the provider you plan to use. `GEMINI_MODEL` and `OPENAI_MODEL` are optional and default to the models shown above. The judge model is fixed to `gpt-5.4-mini`, so `OPENAI_MODEL` only affects OpenAI generation. Langsmith environment variables are for tracing.
 
 ## Testing
 
@@ -71,21 +75,6 @@ The judge is fixed to `gpt-5.4-mini` for every evaluation run, regardless of the
 
 `data/scenarios.json` contains 10 unique scenarios, each with intent, key facts, tone, and a human reference email.
 
-## Final Report
-
-Complete the final report only after all provider and strategy combinations needed for comparison have been run.
-
-Use the evaluation JSON files under `artifacts/` as the raw data source for the report. Then update [docs/final_report.md](docs/final_report.md) with:
-
-- a short prompt summary
-- the metric definitions and logic
-- a reference to the raw evaluation data
-- comparative analysis between the evaluated providers and strategies
-- the biggest failure mode
-- the production recommendation
-
-Keep the report grounded in the evaluated output. Do not invent metric scores, averages, or examples that are not present in the evaluation artifacts.
-
 ## Prompt Strategy
 
 The generator supports two prompt strategies:
@@ -108,7 +97,3 @@ The evaluation uses three custom LLM-as-judge metrics:
 - Professional Email Structure (`professional_structure`)
 
 Each judge scores on a 0-5 scale and returns only a numeric score plus a short reason. See [docs/evaluation_metrics.md](docs/evaluation_metrics.md) for the rubric logic and separation strategy.
-
-## Comparison Rationale
-
-Each evaluation run covers one provider and one prompt strategy. Run the same 10 scenarios and three metrics for each combination being compared, then write the final comparison from those raw evaluation artifacts.
