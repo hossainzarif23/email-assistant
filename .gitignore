@@ -1,0 +1,8 @@
+.env
+venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+AGENTS.md
+AI Engineer Candidate Assessment_ Email Generation Assistant.pdf
+docs/superpowers/

@@ -1,0 +1,625 @@
+{
+  "source_file": "data\\scenarios.json",
+  "metric_definitions": [
+    {
+      "metric": "fact_coverage",
+      "title": "Fact Coverage",
+      "description": "Measures whether the generated email includes all required key facts accurately and naturally.",
+      "rubric": [
+        {
+          "score": 0,
+          "description": "The email ignores the required facts or contradicts them."
+        },
+        {
+          "score": 1,
+          "description": "Only a tiny fragment of one required fact appears."
+        },
+        {
+          "score": 2,
+          "description": "Some facts are present, but multiple important facts are missing or distorted."
+        },
+        {
+          "score": 3,
+          "description": "Most facts are present, but one important fact is missing, weakened, or ambiguous."
+        },
+        {
+          "score": 4,
+          "description": "Almost all required facts are present, with only a minor omission or awkward compression."
+        },
+        {
+          "score": 5,
+          "description": "Every required fact is included accurately and naturally, with no unsupported factual claims."
+        }
+      ]
+    },
+    {
+      "metric": "tone_alignment",
+      "title": "Tone Alignment",
+      "description": "Measures whether the generated email matches the requested tone in context.",
+      "rubric": [
+        {
+          "score": 0,
+          "description": "The tone is absent, opposite of the requested tone, or unusable for the context."
+        },
+        {
+          "score": 1,
+          "description": "The tone is very far from the requested tone."
+        },
+        {
+          "score": 2,
+          "description": "The tone only loosely resembles the requested tone and is noticeably mismatched."
+        },
+        {
+          "score": 3,
+          "description": "The tone is partly aligned but generic, uneven, or inconsistent."
+        },
+        {
+          "score": 4,
+          "description": "The tone is mostly aligned with only small mismatches."
+        },
+        {
+          "score": 5,
+          "description": "The tone closely and consistently matches the requested tone throughout."
+        }
+      ]
+    },
+    {
+      "metric": "professional_structure",
+      "title": "Professional Email Structure",
+      "description": "Measures whether the output works as a professional email.",
+      "rubric": [
+        {
+          "score": 0,
+          "description": "The output is not usable as an email."
+        },
+        {
+          "score": 1,
+          "description": "It barely resembles a professional email or collapses greeting, body, closing, and signature into a flat single paragraph."
+        },
+        {
+          "score": 2,
+          "description": "Some email elements are present, but structure is incomplete, hard to scan, or mostly unformatted."
+        },
+        {
+          "score": 3,
+          "description": "Basic email content is present, but paragraphing, greeting, body, or sign-off formatting is noticeably weak."
+        },
+        {
+          "score": 4,
+          "description": "The email is clear and professional with only minor structure or formatting rough edges."
+        },
+        {
+          "score": 5,
+          "description": "The subject and body are polished, clear, concise, and formatted with distinct greeting, body paragraphing, and sign-off."
+        }
+      ]
+    }
+  ],
+  "results": {
+    "structured": [
+      {
+        "scenario_id": "meeting_waiting_instructions",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Ask the meeting coordinator to provide exact waiting instructions for attendees coming to the May 17 meeting.\n\n**Key facts:**\n- The meeting is on May 17 at 11:00 A.M.\n- The attendees are Kenneth Lay, Marty Sunde, and Bob Williams.\n- The sender needs to know where the attendees should wait or go when they arrive.\n\n**Tone:** Concise, Polite and Professional\n**Sender:** Rosalee Fleming\n**Recipient:** Sarah Whalen\n**Affiliation:** Kenneth Lay's assistant",
+        "generated_email": {
+          "subject": "May 17 Meeting Waiting Instructions",
+          "content": "Dear Sarah Whalen,\n\nCould you please let me know the exact waiting instructions for Kenneth Lay, Marty Sunde, and Bob Williams for the May 17 meeting at 11:00 A.M.? I would appreciate knowing where they should wait or where they should go when they arrive.\n\nThank you for your help.\n\nBest regards,\nRosalee Fleming\nKenneth Lay's assistant"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it asks Sarah Whalen for exact waiting instructions, names Kenneth Lay, Marty Sunde, and Bob Williams, specifies the May 17 meeting at 11:00 A.M., and asks where they should wait or go upon arrival. The wording is concise, polite, and professional, with no missing or contradictory facts."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is concise, polite, and professional throughout: it uses a respectful greeting, a direct request, a courteous thank-you, and an appropriate professional closing/signature. The tone consistently matches the requested style with no meaningful mismatch."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, a concise body written as a separate paragraph, and a properly formatted closing/signature. It is polished and easy to scan, with no structural issues."
+          }
+        ]
+      },
+      {
+        "scenario_id": "meeting_scheduling",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Schedule a project review meeting\n\n**Key facts:**\n- Need to hold meeting next week\n- Available slots are Tuesday 2-3 PM, Wednesday 10-11 AM, and Thursday 1-2 PM\n- Receipients should indicate their availability for the proposed time slots\n- Schedule needs to be finalized soon.\n\n**Tone:** Professional, Concise and Collaborative\n**Sender:** Alexis Tolmie\n**Recipient:** Project Team\n**Affiliation:** Project Manager at Nexus Corp",
+        "generated_email": {
+          "subject": "Project Review Meeting Availability",
+          "content": "Dear Project Team,\n\nI’d like to schedule our project review meeting for next week. Please let me know your availability for the following time slots:\n\n- Tuesday, 2:00–3:00 PM\n- Wednesday, 10:00–11:00 AM\n- Thursday, 1:00–2:00 PM\n\nPlease reply with which of these options work for you so we can finalize the schedule soon.\n\nBest regards,\nAlexis Tolmie\nProject Manager at Nexus Corp"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it says the project review meeting is for next week, lists the three proposed slots (Tuesday 2:00–3:00 PM, Wednesday 10:00–11:00 AM, Thursday 1:00–2:00 PM), asks recipients to reply with their availability for those options, and states that the schedule should be finalized soon. No required fact is missing or distorted."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is professional, concise, and politely collaborative throughout. It clearly requests availability, lists the proposed time slots, and asks for a reply so the schedule can be finalized soon. The tone matches the intent well, though it is fairly standard and not especially distinctive, so it is better as a strong 4 than a perfect 5."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email is well structured with a clear subject, a distinct greeting, a concise body that includes the meeting request and available time slots, and a proper closing with signature. Formatting is clean and easy to scan, satisfying the professional_structure metric fully."
+          }
+        ]
+      },
+      {
+        "scenario_id": "vendor_invoice_follow_up",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Follow up with a vendor about an overdue invoice payment\n\n**Key facts:**\n- Invoice 48217 was due on April 30, 2026\n- The outstanding amount is $3,450\n- Request an update on the expected payment date\n\n**Tone:** Firm, Polite and Professional\n**Sender:** Nina Brooks\n**Recipient:** Accounts Payable Team\n**Affiliation:** Procurement Coordinator at Harborview Labs",
+        "generated_email": {
+          "subject": "Follow-Up on Invoice 48217",
+          "content": "Dear Accounts Payable Team,\n\nI’m following up regarding Invoice 48217, which was due on April 30, 2026. The outstanding balance of $3,450 remains unpaid, and I would appreciate an update on the expected payment date.\n\nPlease let me know when we can expect payment or if any additional information is needed from our side to resolve this.\n\nThank you for your prompt attention to this matter.\n\nBest regards,\nNina Brooks\nProcurement Coordinator\nHarborview Labs"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it identifies Invoice 48217, states it was due on April 30, 2026, gives the outstanding amount as $3,450, and clearly requests an update on the expected payment date. There are no contradictions or missing required facts."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently firm, polite, and professional: it states the overdue invoice and unpaid balance directly, requests an update on the payment date, and uses courteous phrasing such as \"I would appreciate\" and \"Thank you for your prompt attention.\""
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, well-structured body paragraphs, and a proper closing/sign-off with signature. It is professionally formatted, concise, and easy to scan with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "candidate_interview_reschedule",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Ask a candidate to reschedule a job interview\n\n**Key facts:**\n- The original interview was set for Tuesday at 2:00 PM\n- The interviewer has a conflict\n- Offer Wednesday 9:00 AM or Thursday 3:00 PM as alternatives\n- The interview is for the Software Engineer position at BrightPath Software Solutions\n- The interview is expected to last about 90 minutes\n- Ask the candidate to confirm availability for the proposed time slots\n\n**Tone:** Professional, Courteous, Apologetic, and Concise\n**Sender:** Marcus Chen\n**Recipient:** Avery Johnson\n**Affiliation:** Senior Recruiter at BrightPath Software Solutions",
+        "generated_email": {
+          "subject": "Request to Reschedule Your Interview",
+          "content": "Dear Avery Johnson,\n\nI’m sorry, but I need to reschedule your interview for the Software Engineer position at BrightPath Software Solutions originally set for Tuesday at 2:00 PM due to a conflict on my end.\n\nWould you be available instead on Wednesday at 9:00 AM or Thursday at 3:00 PM? The interview is expected to last about 90 minutes. Please let me know which of these times works best for you.\n\nThank you for your flexibility, and I apologize for any inconvenience.\n\nBest regards,\nMarcus Chen\nSenior Recruiter\nBrightPath Software Solutions"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are included accurately and naturally: the email states the original interview was Tuesday at 2:00 PM, explains there is a conflict, offers Wednesday at 9:00 AM or Thursday at 3:00 PM as alternatives, identifies the role as Software Engineer at BrightPath Software Solutions, notes the interview should last about 90 minutes, and asks the candidate to let them know which time works best."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently professional, courteous, apologetic, and concise: it opens with a polite apology, states the rescheduling request plainly, offers alternative times, and closes with a brief thanks and respectful sign-off."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email is well structured with a clear subject line, distinct greeting, separated body paragraphs, a professional closing, and a signature block. It is easy to scan and matches the professional email format expected for this metric."
+          }
+        ]
+      },
+      {
+        "scenario_id": "conference_registration_reminder",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Send a reminder about conference registration deadlines\n\n**Key facts:**\n- Current date is September 5, 2025\n- Early-bird registration closes on September 10, 2025\n- The conference takes place on October 22 to 24, 2025\n- Early-bird registration fee is $300, while regular registration fee is $400\n- Encourage recipients to register soon to secure the lower rate\n\n**Tone:** Informative, Upbeat, and Professional\n**Affiliation:** North Shore Innovation Summit",
+        "generated_email": {
+          "subject": "Reminder: Early-Bird Registration Ends September 10",
+          "content": "Dear [Recipient Name],\n\nThis is a friendly reminder that early-bird registration for the North Shore Innovation Summit closes on September 10, 2025.\n\nThe conference will take place from October 22 to 24, 2025. Registering early secures the lower rate of $300, compared with the regular registration fee of $400.\n\nIf you plan to attend, we encourage you to register soon so you can take advantage of the savings.\n\nBest regards,\n[Your Name]\nNorth Shore Innovation Summit"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 4,
+            "reason": "The email includes the early-bird deadline of September 10, 2025, the conference dates of October 22–24, 2025, the $300 early-bird fee and $400 regular fee, and it encourages recipients to register soon to secure the lower rate. The only required fact not explicitly included is the current date of September 5, 2025, so the coverage is nearly complete but not perfect."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is consistently informative and professional, and the wording is mildly upbeat with phrases like “friendly reminder” and “take advantage of the savings.” It matches the requested tone well overall, though it remains fairly generic and not especially energetic, so it falls slightly short of a perfect fit."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email is well structured with a clear subject line, a distinct greeting, separate body paragraphs, a professional closing, and a signature block. It is easy to scan and formatted like a polished professional email, with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "project_status_update",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Provide a status update on a delayed project milestone\n\n**Key facts:**\n- The design review is now expected to finish by Friday, 19 June, 2026\n- The delay was caused by missing stakeholder feedback\n- No change is needed to the final launch date yet\n\n**Tone:** Transparent, Calm and Reassuring",
+        "generated_email": {
+          "subject": "Update on Design Review Timeline",
+          "content": "Dear [Recipient Name],\n\nI wanted to provide a quick status update on the project. The design review is now expected to finish by Friday, 19 June, 2026.\n\nThe delay was caused by missing stakeholder feedback, which has slowed the review process. We are continuing to move the work forward and will keep things on track as we receive the remaining input.\n\nAt this time, there is no change needed to the final launch date.\n\nThank you for your understanding. Please let me know if you have any questions or would like additional details.\n\nBest regards,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are present accurately: the design review is expected to finish by Friday, 19 June, 2026; the delay is attributed to missing stakeholder feedback; and the email states there is no change needed to the final launch date yet. The added reassurance does not conflict with the scenario."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is transparent about the delay, calm in its wording, and reassuring by stating the review timeline and that the final launch date does not need to change yet. It maintains a steady, professional tone throughout, though it is fairly generic rather than especially warm or distinctive, so it is mostly aligned rather than perfectly so."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separate body paragraphs, and a proper closing/sign-off with signature placeholder. It is well formatted and easy to scan, with no meaningful structural issues."
+          }
+        ]
+      },
+      {
+        "scenario_id": "meeting_minutes_distribution",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Share meeting minutes and request corrections\n\n**Key facts:**\n- The meeting covered Q3 roadmap priorities\n- Attached notes summarize the key decisions and action items\n- Ask readers to send corrections by end of day Thursday\n\n**Tone:** Clear, Organized and Professional\n**Sender:** Sofia Martinez\n**Recipient:** Product Leadership Group\n**Affiliation:** Product Operations Manager",
+        "generated_email": {
+          "subject": "Q3 Roadmap Meeting Notes",
+          "content": "Dear Product Leadership Group,\n\nThank you for your time in the meeting covering Q3 roadmap priorities.\n\nAttached are the meeting notes, which summarize the key decisions and action items discussed. Please review them and send any corrections by end of day Thursday.\n\nBest regards,\nSofia Martinez\nProduct Operations Manager"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it references the Q3 roadmap priorities meeting, says the attached notes summarize the key decisions and action items, and asks for corrections by end of day Thursday. No required fact is missing or distorted."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is clearly, organizedly, and professionally toned throughout: it opens with a polite greeting, uses concise and direct language, and includes a courteous request for corrections by the deadline. It matches the requested tone well, though it is fairly standard and generic rather than especially polished or distinctive."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separated body paragraphs, a professional closing, and a signature with name and title. It is well formatted and fully aligned with the professional structure rubric."
+          }
+        ]
+      },
+      {
+        "scenario_id": "community_event_volunteer_call",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Invite volunteers to help at a community cleanup event\n\n**Key facts:**\n- The cleanup is scheduled for Saturday from 9:00 AM to 12:00 PM\n- Volunteers should bring gloves and closed-toe shoes\n- Lunch and water will be provided\n\n**Tone:** Friendly, Encouraging and Appreciative\n**Sender:** Community Outreach Organizer\n**Recipient:** Local Volunteers\n**Affiliation:** Riverside Neighborhood Association",
+        "generated_email": {
+          "subject": "Volunteer for Saturday’s Community Cleanup",
+          "content": "Dear Local Volunteers,\n\nWe’re excited to invite you to join us for our community cleanup event this Saturday from 9:00 AM to 12:00 PM.\n\nIf you’re able to help, please bring gloves and closed-toe shoes. Lunch and water will be provided for all volunteers.\n\nWe truly appreciate your time and support in helping keep our neighborhood clean and welcoming. Thank you for considering being part of this effort.\n\nBest regards,\nCommunity Outreach Organizer\nRiverside Neighborhood Association"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately and naturally: it states the cleanup is on Saturday from 9:00 AM to 12:00 PM, asks volunteers to bring gloves and closed-toe shoes, and says lunch and water will be provided. It also matches the intended friendly, appreciative invitation without adding any conflicting details."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email consistently uses a friendly, encouraging, and appreciative tone throughout, with phrases like “We’re excited,” “please,” “We truly appreciate your time and support,” and “Thank you for considering.” There are no noticeable tone mismatches."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separate body paragraphs, a professional closing, and a signature with sender affiliation. The formatting is polished and easy to scan, matching the rubric for a full 5."
+          }
+        ]
+      },
+      {
+        "scenario_id": "anonymous_policy_notice",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Announce an update to the office visitor policy\n\n**Key facts:**\n- Visitors must now check in at the front desk\n- A government-issued photo ID is required for entry\n- The new policy starts on Monday\n\n**Tone:** formal and informative",
+        "generated_email": {
+          "subject": "Updated Office Visitor Policy",
+          "content": "Dear [Recipient Name],\n\nPlease be advised that our office visitor policy has been updated. Starting Monday, all visitors must check in at the front desk upon arrival and present a government-issued photo ID for entry.\n\nPlease share this information with anyone who may be visiting the office. Thank you for your cooperation.\n\nSincerely,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are stated accurately and naturally: the email says visitors must check in at the front desk, must present a government-issued photo ID for entry, and that the updated policy starts on Monday. No required fact is missing or contradicted."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email consistently uses a formal, professional, and informative tone: it begins with a courteous salutation, uses polished phrasing like \"Please be advised,\" clearly states the policy update, and closes politely with \"Thank you for your cooperation\" and a formal sign-off."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, well-separated body paragraphs, and a proper closing/signature block. The structure is polished and professional, with no meaningful formatting weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "anonymous_service_outage_notice",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nScenario data:\n**Intent:** Notify users about a temporary service outage\n\n**Key facts:**\n- Maintenance will occur on Sunday from 1:00 AM to 3:00 AM\n- The portal may be unavailable during that window\n- Service is expected to resume immediately after maintenance\n\n**Tone:** brief, reassuring, and professional",
+        "generated_email": {
+          "subject": "Scheduled Maintenance Notice",
+          "content": "Dear [Recipient Name],\n\nPlease note that maintenance will take place on Sunday from 1:00 AM to 3:00 AM. During this window, the portal may be unavailable.\n\nService is expected to resume immediately after maintenance is complete. We appreciate your patience and understanding.\n\nBest regards,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: maintenance is scheduled for Sunday from 1:00 AM to 3:00 AM, the portal may be unavailable during that window, and service is expected to resume immediately after maintenance. The wording is clear, brief, and matches the scenario without adding conflicting details."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently brief, reassuring, and professional throughout: it states the maintenance window plainly, notes the portal may be unavailable without alarm, and closes with a polite appreciation message."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line and is formatted with a distinct greeting, separate body paragraphs, and a proper closing/sign-off. It is easy to scan and professionally structured, with no meaningful formatting weaknesses for this metric."
+          }
+        ]
+      }
+    ],
+    "few_shot": [
+      {
+        "scenario_id": "meeting_waiting_instructions",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Ask the meeting coordinator to provide exact waiting instructions for attendees coming to the May 17 meeting.\n\n**Key facts:**\n- The meeting is on May 17 at 11:00 A.M.\n- The attendees are Kenneth Lay, Marty Sunde, and Bob Williams.\n- The sender needs to know where the attendees should wait or go when they arrive.\n\n**Tone:** Concise, Polite and Professional\n**Sender:** Rosalee Fleming\n**Recipient:** Sarah Whalen\n**Affiliation:** Kenneth Lay's assistant",
+        "generated_email": {
+          "subject": "May 17 meeting waiting instructions",
+          "content": "Hello Sarah,\n\nCould you please let me know the exact instructions for attendees arriving for the May 17 meeting at 11:00 A.M.? Kenneth Lay, Marty Sunde, and Bob Williams will be attending, and I need to know where they should wait or where they should go when they arrive.\n\nThank you for your help.\n\nBest regards,\nRosalee Fleming\nKenneth Lay's assistant"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are included accurately: the meeting date and time (May 17 at 11:00 A.M.), the attendees (Kenneth Lay, Marty Sunde, and Bob Williams), and the request for exact waiting/arrival instructions about where they should wait or go. No required fact is missing or distorted."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is consistently concise, polite, and professional in tone, using a direct request, courteous phrasing, and an appropriate closing. It matches the requested tone well, though it is fairly standard and not exceptional enough to warrant a perfect score."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject and a well-formatted body with a distinct greeting, a separate body paragraph, a closing, and a signature. It is concise, professional, and easy to scan, with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "meeting_scheduling",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Schedule a project review meeting\n\n**Key facts:**\n- Need to hold meeting next week\n- Available slots are Tuesday 2-3 PM, Wednesday 10-11 AM, and Thursday 1-2 PM\n- Receipients should indicate their availability for the proposed time slots\n- Schedule needs to be finalized soon.\n\n**Tone:** Professional, Concise and Collaborative\n**Sender:** Alexis Tolmie\n**Recipient:** Project Team\n**Affiliation:** Project Manager at Nexus Corp",
+        "generated_email": {
+          "subject": "Project review meeting next week",
+          "content": "Hello Project Team,\n\nI’d like to schedule a project review meeting for next week. Please let me know your availability for any of the following time slots: Tuesday 2–3 PM, Wednesday 10–11 AM, or Thursday 1–2 PM.\n\nWe’ll need to finalize the schedule soon, so your prompt response would be appreciated.\n\nBest regards,\nAlexis Tolmie\nProject Manager at Nexus Corp"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are present and accurate: the meeting is for next week, the three proposed time slots are included exactly, recipients are asked to indicate availability, and the schedule being finalized soon is clearly conveyed with a prompt-response request. No required fact is missing or distorted."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently professional, concise, and collaborative: it uses a polite greeting, direct scheduling language, a clear request for availability, and a courteous closing with a prompt-response note. The tone matches the requested style throughout without noticeable mismatch."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, well-separated body paragraphs, and a proper closing/signature block. It is concise, professional, and easy to scan, with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "vendor_invoice_follow_up",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Follow up with a vendor about an overdue invoice payment\n\n**Key facts:**\n- Invoice 48217 was due on April 30, 2026\n- The outstanding amount is $3,450\n- Request an update on the expected payment date\n\n**Tone:** Firm, Polite and Professional\n**Sender:** Nina Brooks\n**Recipient:** Accounts Payable Team\n**Affiliation:** Procurement Coordinator at Harborview Labs",
+        "generated_email": {
+          "subject": "Follow-up on Invoice 48217",
+          "content": "Hello Accounts Payable Team,\n\nI’m following up regarding invoice 48217, which was due on April 30, 2026. The outstanding amount is $3,450.\n\nCould you please share an update on the expected payment date? I’d appreciate any information you can provide.\n\nBest regards,\nNina Brooks\nProcurement Coordinator\nHarborview Labs"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it identifies invoice 48217, states it was due on April 30, 2026, gives the outstanding amount as $3,450, and clearly requests an update on the expected payment date. It is also addressed appropriately and matches the professional tone."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently polite, professional, and appropriately firm: it clearly references the overdue invoice, states the amount, and directly requests an update on the payment date without sounding rude or overly casual."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email is well structured and professional: it includes a clear subject line, a distinct greeting, separate body paragraphs, and a proper sign-off with a full signature. The formatting is polished and easy to scan, with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "candidate_interview_reschedule",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Ask a candidate to reschedule a job interview\n\n**Key facts:**\n- The original interview was set for Tuesday at 2:00 PM\n- The interviewer has a conflict\n- Offer Wednesday 9:00 AM or Thursday 3:00 PM as alternatives\n- The interview is for the Software Engineer position at BrightPath Software Solutions\n- The interview is expected to last about 90 minutes\n- Ask the candidate to confirm availability for the proposed time slots\n\n**Tone:** Professional, Courteous, Apologetic, and Concise\n**Sender:** Marcus Chen\n**Recipient:** Avery Johnson\n**Affiliation:** Senior Recruiter at BrightPath Software Solutions",
+        "generated_email": {
+          "subject": "Request to Reschedule Your Interview",
+          "content": "Hi Avery,\n\nI’m sorry, but I need to reschedule your interview for the Software Engineer position at BrightPath Software Solutions originally set for Tuesday at 2:00 PM due to a conflict on our side.\n\nWould you be available instead on Wednesday at 9:00 AM or Thursday at 3:00 PM? The interview should last about 90 minutes.\n\nPlease let me know which of these times works for you.\n\nBest regards,\nMarcus Chen\nSenior Recruiter\nBrightPath Software Solutions"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it says the interview for the Software Engineer position at BrightPath Software Solutions was originally set for Tuesday at 2:00 PM, explains there is a conflict on their side, offers Wednesday at 9:00 AM or Thursday at 3:00 PM as alternatives, notes the interview should last about 90 minutes, and asks Avery to confirm which time works."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is consistently professional, courteous, apologetic, and concise: it opens politely, clearly apologizes for the need to reschedule, states the conflict without unnecessary detail, and closes in a formal way. The wording stays aligned with the requested tone throughout."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject, a distinct greeting (“Hi Avery,”), separate body paragraphs covering the reschedule request, alternative times, and confirmation request, and a proper sign-off with sender name and title. It is well formatted, concise, and professional with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "conference_registration_reminder",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Send a reminder about conference registration deadlines\n\n**Key facts:**\n- Current date is September 5, 2025\n- Early-bird registration closes on September 10, 2025\n- The conference takes place on October 22 to 24, 2025\n- Early-bird registration fee is $300, while regular registration fee is $400\n- Encourage recipients to register soon to secure the lower rate\n\n**Tone:** Informative, Upbeat, and Professional\n**Affiliation:** North Shore Innovation Summit",
+        "generated_email": {
+          "subject": "Early-bird registration closes September 10",
+          "content": "Hello [Recipient Name],\n\nAs of September 5, 2025, we wanted to send a quick reminder that early-bird registration for the conference closes on September 10, 2025. The conference will take place from October 22 to 24, 2025.\n\nRegistering early will secure the lower rate of $300, compared with the regular registration fee of $400. We encourage you to sign up soon to take advantage of the savings.\n\nBest regards,\n[Your Name]\nNorth Shore Innovation Summit"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are included accurately: the current date is September 5, 2025; early-bird registration closes September 10, 2025; the conference dates are October 22–24, 2025; the early-bird fee is $300 and the regular fee is $400; and the email clearly encourages recipients to register soon to secure the lower rate."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is clearly informative and professional, with a polite greeting, direct reminder, deadline details, and a courteous encouragement to register soon. It has a mildly upbeat note in \"take advantage of the savings,\" but the tone is fairly standard and not especially lively or strongly upbeat throughout, so it fits mostly well rather than perfectly."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separate body paragraphs, a proper sign-off, and a signature block. It is well formatted and professionally structured with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "project_status_update",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Provide a status update on a delayed project milestone\n\n**Key facts:**\n- The design review is now expected to finish by Friday, 19 June, 2026\n- The delay was caused by missing stakeholder feedback\n- No change is needed to the final launch date yet\n\n**Tone:** Transparent, Calm and Reassuring",
+        "generated_email": {
+          "subject": "Update on design review timeline",
+          "content": "Hello [Recipient Name],\n\nI wanted to provide a quick update on the design review. It is now expected to finish by Friday, 19 June, 2026. The delay was caused by missing stakeholder feedback.\n\nAt this point, no change is needed to the final launch date yet. I will keep you informed if anything changes.\n\nBest regards,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are present accurately: the design review is expected to finish by Friday, 19 June, 2026; the delay is attributed to missing stakeholder feedback; and it states that no change is needed to the final launch date yet. The message is clear and natural with no conflicting or unsupported factual claims."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email is transparent about the delay, calm in wording, and reassuring by stating the launch date is unchanged and promising updates if anything changes. The tone stays consistent throughout."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email is clearly and professionally structured with a relevant subject line, a distinct greeting, two readable body paragraphs, and a clear sign-off/signature block. It is easy to scan and fully matches the expected email format."
+          }
+        ]
+      },
+      {
+        "scenario_id": "meeting_minutes_distribution",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Share meeting minutes and request corrections\n\n**Key facts:**\n- The meeting covered Q3 roadmap priorities\n- Attached notes summarize the key decisions and action items\n- Ask readers to send corrections by end of day Thursday\n\n**Tone:** Clear, Organized and Professional\n**Sender:** Sofia Martinez\n**Recipient:** Product Leadership Group\n**Affiliation:** Product Operations Manager",
+        "generated_email": {
+          "subject": "Q3 roadmap meeting minutes and corrections",
+          "content": "Hello Product Leadership Group,\n\nPlease find attached the meeting notes from our discussion on Q3 roadmap priorities. The notes summarize the key decisions and action items from the meeting.\n\nPlease review them and send any corrections by end of day Thursday.\n\nBest regards,\nSofia Martinez\nProduct Operations Manager"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are included accurately: the email mentions the Q3 roadmap priorities, says the attached notes summarize the key decisions and action items, and asks for corrections by end of day Thursday. It is clear, natural, and adds no unsupported factual claims."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email consistently uses a clear, organized, professional tone: polite greeting, concise request, formal sign-off, and no casual or off-tone language."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separated body paragraphs, and a proper sign-off with signature. It is well formatted and professionally structured, matching the rubric for a polished email."
+          }
+        ]
+      },
+      {
+        "scenario_id": "community_event_volunteer_call",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Invite volunteers to help at a community cleanup event\n\n**Key facts:**\n- The cleanup is scheduled for Saturday from 9:00 AM to 12:00 PM\n- Volunteers should bring gloves and closed-toe shoes\n- Lunch and water will be provided\n\n**Tone:** Friendly, Encouraging and Appreciative\n**Sender:** Community Outreach Organizer\n**Recipient:** Local Volunteers\n**Affiliation:** Riverside Neighborhood Association",
+        "generated_email": {
+          "subject": "Volunteer for Saturday’s Community Cleanup",
+          "content": "Hello Local Volunteers,\n\nWe’d love to have you join us for a community cleanup event this Saturday from 9:00 AM to 12:00 PM. Your help would make a real difference, and we truly appreciate your support.\n\nPlease remember to bring gloves and closed-toe shoes. Lunch and water will be provided.\n\nThank you for considering volunteering with us. We hope to see you there!\n\nBest,\nCommunity Outreach Organizer\nRiverside Neighborhood Association"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: the cleanup is scheduled for Saturday from 9:00 AM to 12:00 PM, volunteers are asked to bring gloves and closed-toe shoes, and lunch and water will be provided. There are no missing or distorted key facts."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email maintains a friendly, encouraging, and appreciative tone throughout with phrases like “We’d love to have you join us,” “Your help would make a real difference,” and “we truly appreciate your support.” It is consistently aligned, though fairly standard and not especially warm or distinctive, so it fits mostly well rather than perfectly."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line, a distinct greeting, separate body paragraphs, and a proper sign-off with signature. It is well-formatted, professional, and easy to scan, with no meaningful structural weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "anonymous_policy_notice",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Announce an update to the office visitor policy\n\n**Key facts:**\n- Visitors must now check in at the front desk\n- A government-issued photo ID is required for entry\n- The new policy starts on Monday\n\n**Tone:** formal and informative",
+        "generated_email": {
+          "subject": "Update to Office Visitor Policy",
+          "content": "Hello [Recipient Name],\n\nPlease be advised that our office visitor policy has been updated. Beginning Monday, all visitors must check in at the front desk and present a government-issued photo ID for entry.\n\nThank you for your attention to this update.\n\nBest regards,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "The email includes all required facts accurately: it says visitors must check in at the front desk, must present a government-issued photo ID for entry, and that the updated policy begins Monday. The content is formal and informative, with no unsupported factual claims."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 5,
+            "reason": "The email closely matches the requested formal, informative tone throughout. It uses professional phrasing such as \"Please be advised\" and clearly presents the policy update, effective date, and requirements without casual language or inconsistency."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email includes a clear subject line and is well formatted with a distinct greeting, a separate body paragraph, a closing, and a signature line. The structure is polished and professional, with no meaningful formatting weaknesses."
+          }
+        ]
+      },
+      {
+        "scenario_id": "anonymous_service_outage_notice",
+        "generation_prompt": "You are a helpful assistant specialized in writing emails.\n\nWrite a professional email from the scenario data.\n\nWhat to optimize for:\n1. Faithfully include every key fact.\n2. Match the requested tone of the email.\n3. Make the email sound natural, specific, and useful.\n4. Keep the subject concise and relevant.\n5. Use a professional email structure: greeting, clear body, and appropriate sign-off.\n\nIdentity rules:\n- If recipient is provided, address that recipient.\n- If recipient is missing but obvious from the scenario, infer it.\n- If recipient is not obvious, use [Recipient Name].\n- If sender is provided, sign as that sender.\n- If sender is missing but obvious from the scenario, infer it.\n- If sender is not obvious, use [Your Name].\n- If affiliation is provided, include it only when it fits naturally.\n- If affiliation is missing but obvious from the scenario, infer it.\n- If affiliation is not obvious, omit it.\n\nDo not invent names, organizations, titles, dates, commitments, facts, or affiliations.\nDo not reveal hidden reasoning or chain-of-thought. Only provide the subject and content of the email.\n\nReturn exactly one JSON object matching this schema:\n{\"subject\": \"string\", \"content\": \"string\"}\n\nExamples:\nExample 1\n\nScenario data:\n**Intent:** Follow up after a client meeting\n\n**Key facts:**\n- Thank the recipient for their time\n- Send the revised timeline\n- Confirm that the next checkpoint is Wednesday\n\n**Tone:** warm and professional\n**Sender:** Jordan Lee\n**Recipient:** Maya Patel\n\nExpected output:\n{\n  \"subject\": \"Follow-up and revised timeline\",\n  \"content\": \"Hi Maya,\\n\\nThank you for taking the time to meet today. I am sending over the revised timeline and confirming that our next checkpoint is Wednesday.\\n\\nPlease let me know if you have any questions before then.\\n\\nBest,\\nJordan\"\n}\n\nExample 2\n\nScenario data:\n**Intent:** Request approval for a project budget\n\n**Key facts:**\n- Approval is needed by Friday\n- The budget remains within $8,000\n- Approval keeps the project on schedule\n\n**Tone:** concise and polite\n**Affiliation:** Northstar Consulting\n\nExpected output:\n{\n  \"subject\": \"Budget approval requested by Friday\",\n  \"content\": \"Hello [Recipient Name],\\n\\nCould you please review and approve the project budget by Friday? The budget remains within $8,000, and approval by then will keep the project on schedule.\\n\\nBest regards,\\n[Your Name]\\nNorthstar Consulting\"\n}\n\nScenario data:\n**Intent:** Notify users about a temporary service outage\n\n**Key facts:**\n- Maintenance will occur on Sunday from 1:00 AM to 3:00 AM\n- The portal may be unavailable during that window\n- Service is expected to resume immediately after maintenance\n\n**Tone:** brief, reassuring, and professional",
+        "generated_email": {
+          "subject": "Scheduled maintenance Sunday 1:00–3:00 AM",
+          "content": "Hello [Recipient Name],\n\nPlease be advised that maintenance is scheduled for Sunday from 1:00 AM to 3:00 AM. The portal may be unavailable during this window.\n\nService is expected to resume immediately after maintenance is complete. We appreciate your patience and understanding.\n\nBest,\n[Your Name]"
+        },
+        "metrics": [
+          {
+            "metric": "fact_coverage",
+            "score": 5,
+            "reason": "All required facts are present and accurate: it states maintenance is scheduled for Sunday from 1:00 AM to 3:00 AM, notes the portal may be unavailable during that window, and says service is expected to resume immediately after maintenance. The wording is brief, professional, and reassuring, with no contradictory or unsupported claims."
+          },
+          {
+            "metric": "tone_alignment",
+            "score": 4,
+            "reason": "The email is brief, polite, and professional throughout, with reassuring language such as \"please be advised\" and \"we appreciate your patience and understanding.\" It matches the requested tone well, though it is fairly standard and generic rather than especially polished or distinctive, so 4 is more appropriate than 5."
+          },
+          {
+            "metric": "professional_structure",
+            "score": 5,
+            "reason": "The email has a clear subject line and is formatted with a distinct greeting, separate body paragraphs, and a closing/signature line. It is easy to scan and professionally structured with no meaningful formatting weakness."
+          }
+        ]
+      }
+    ]
+  },
+  "aggregates": [
+    {
+      "strategy": "structured",
+      "metric_averages": {
+        "fact_coverage": 4.9,
+        "tone_alignment": 4.6,
+        "professional_structure": 5.0
+      },
+      "overall_average": 4.833333333333333
+    },
+    {
+      "strategy": "few_shot",
+      "metric_averages": {
+        "fact_coverage": 5.0,
+        "tone_alignment": 4.6,
+        "professional_structure": 5.0
+      },
+      "overall_average": 4.866666666666666
+    }
+  ],
+  "winner": "few_shot"
+}

@@ -1,0 +1,167 @@
+[
+    {
+        "id": "meeting_waiting_instructions",
+        "intent": "Ask the meeting coordinator to provide exact waiting instructions for attendees coming to the May 17 meeting.",
+        "key_facts": [
+            "The meeting is on May 17 at 11:00 A.M.",
+            "The attendees are Kenneth Lay, Marty Sunde, and Bob Williams.",
+            "The sender needs to know where the attendees should wait or go when they arrive."
+        ],
+        "tone": "Concise, Polite and Professional",
+        "sender": "Rosalee Fleming",
+        "recipient": "Sarah Whalen",
+        "affiliation": "Kenneth Lay's assistant",
+        "reference_email": {
+            "subject": "Meeting Instructions for May 17 at 11:00 A.M.",
+            "content": "Dear Sarah,\n\nThe attendees for the meeting at May 17, 11:00 A.M. are Kenneth Lay, Marty Sunde and Bob Williams.\n\nCould you please let me know exactly where they should wait or go when they arrive for the meeting?\n\nThanks,\nRosalee Fleming,\nKenneth Lay's assistant"
+        }
+    },
+    {
+        "id": "meeting_scheduling",
+        "intent": "Schedule a project review meeting",
+        "key_facts": [
+            "Need to hold meeting next week",
+            "Available slots are Tuesday 2-3 PM, Wednesday 10-11 AM, and Thursday 1-2 PM",
+            "Receipients should indicate their availability for the proposed time slots",
+            "Schedule needs to be finalized soon."
+        ],
+        "tone": "Professional, Concise and Collaborative",
+        "sender": "Alexis Tolmie",
+        "recipient": "Project Team",
+        "affiliation": "Project Manager at Nexus Corp",
+        "reference_email": {
+            "subject": "Project Review Meeting Availability",
+            "content": "Dear Team,\n\nWe need to schedule a project review meeting for next week.\n\nAt the moment, the available time slots are:\n- Tuesday 2-3 PM\n- Wednesday 10-11 AM\n- Thursday 1-2 PM\n\nPlease let me know which of these options work best for your schedule so we can finalize the meeting time as soon as possible.\n\nThank you, and I look forward to hearing from you.\n\nBest regards,\nAlexis Tolmie\nProject Manager, Nexus Corp"
+        }
+    },
+    {
+        "id": "vendor_invoice_follow_up",
+        "intent": "Follow up with a vendor about an overdue invoice payment",
+        "key_facts": [
+            "Invoice 48217 was due on April 30, 2026",
+            "The outstanding amount is $3,450",
+            "Request an update on the expected payment date"
+        ],
+        "tone": "Firm, Polite and Professional",
+        "sender": "Nina Brooks",
+        "recipient": "Accounts Payable Team",
+        "affiliation": "Procurement Coordinator at Harborview Labs",
+        "reference_email": {
+            "subject": "Follow-up on Overdue Invoice 48217",
+            "content": "Dear Accounts Payable Team,\n\nI’m writing to follow up on Invoice 48217, which was due on April 30, 2026. Our records show that the outstanding amount of $3,450 remains unpaid.\n\nPlease provide an update on the status of this payment and confirm the expected payment date at your earliest convenience.\n\nThank you for your attention to this matter.\n\nBest regards,\nNina Brooks\nProcurement Coordinator, Harborview Labs"
+        }
+    },
+    {
+        "id": "candidate_interview_reschedule",
+        "intent": "Ask a candidate to reschedule a job interview",
+        "key_facts": [
+            "The original interview was set for Tuesday at 2:00 PM",
+            "The interviewer has a conflict",
+            "Offer Wednesday 9:00 AM or Thursday 3:00 PM as alternatives",
+            "The interview is for the Software Engineer position at BrightPath Software Solutions",
+            "The interview is expected to last about 90 minutes",
+            "Ask the candidate to confirm availability for the proposed time slots"
+        ],
+        "tone": "Professional, Courteous, Apologetic, and Concise",
+        "sender": "Marcus Chen",
+        "recipient": "Avery Johnson",
+        "affiliation": "Senior Recruiter at BrightPath Software Solutions",
+        "reference_email": {
+            "subject": "Request to Reschedule Software Engineer Interview",
+            "content": "Dear Avery Johnson,\n\nI hope you’re doing well. We would need to reschedule your interview for the Software Engineer position at BrightPath Software Solutions, originally set for Tuesday at 2:00 PM, due to a scheduling conflict with the interviewer.\n\nWould you be available to reschedule for either Wednesday at 9:00 AM or Thursday at 3:00 PM? The interview is expected to last about 90 minutes.\n\nPlease let us know which of these options works best for you at your earliest convenience.\n\nI apologize for any inconvenience this may cause. Thank you for your understanding, and I look forward to your response.\n\nBest regards,\nMarcus Chen\nSenior Recruiter, BrightPath Software Solutions"
+        }
+    },
+    {
+        "id": "conference_registration_reminder",
+        "intent": "Send a reminder about conference registration deadlines",
+        "key_facts": [
+            "Current date is September 5, 2025",
+            "Early-bird registration closes on September 10, 2025",
+            "The conference takes place on October 22 to 24, 2025",
+            "Early-bird registration fee is $300, while regular registration fee is $400",
+            "Encourage recipients to register soon to secure the lower rate"
+        ],
+        "tone": "Informative, Upbeat, and Professional",
+        "affiliation": "North Shore Innovation Summit",
+        "reference_email": {
+            "subject": "Reminder: Early-Bird Registration Closes September 10",
+            "content": "Dear Prospective Attendees,\n\nEarly-bird registration for the North Shore Innovation Summit is closing soon on September 10, 2025, in just five days!. Early-bird registration offers a discounted fee of $300, compared to the regular registration fee of $400.\n\nThe North Shore Innovation Summit will take place from October 22 to 24, 2025, bringing together innovators, industry leaders, and professionals for three days of insights, networking, and collaboration.\n\nRegister soon to secure your spot and take advantage of the lower early-bird rate.\n\nWe look forward to seeing you at the summit.\n\nBest regards,\nNorth Shore Innovation Summit Team"
+        }
+    },
+    {
+        "id": "project_status_update",
+        "intent": "Provide a status update on a delayed project milestone",
+        "key_facts": [
+            "The design review is now expected to finish by Friday, 19 June, 2026",
+            "The delay was caused by missing stakeholder feedback",
+            "No change is needed to the final launch date yet"
+        ],
+        "tone": "Transparent, Calm and Reassuring",
+        "reference_email": {
+            "subject": "Project Milestone Status Update",
+            "content": "Hi Team,\n\nI wanted to share a quick update on the current project milestone.\n\nThe design review is now expected to be completed by Friday, 19 June, 2026. The delay is due to missing stakeholder feedback, which we are working to collect and incorporate as soon as possible.\n\nAt this time, we do not anticipate any changes to the final launch date. We will continue monitoring progress closely and will share any updates if the timeline changes.\n\nThank you for your patience and continued support.\n\nBest Regards,\n[Your Name]"
+        }
+    },
+    {
+        "id": "meeting_minutes_distribution",
+        "intent": "Share meeting minutes and request corrections",
+        "key_facts": [
+            "The meeting covered Q3 roadmap priorities",
+            "Attached notes summarize the key decisions and action items",
+            "Ask readers to send corrections by end of day Thursday"
+        ],
+        "tone": "Clear, Organized and Professional",
+        "sender": "Sofia Martinez",
+        "recipient": "Product Leadership Group",
+        "affiliation": "Product Operations Manager",
+        "reference_email": {
+            "subject": "Meeting Minutes - Q3 Roadmap Discussion",
+            "content": "Dear Product Leadership Group,\n\nI’m sharing the meeting minutes from our recent discussion on Q3 roadmap priorities.\n\nThe attached notes summarize the key decisions made during the meeting, along with the action items discussed and assigned. Please review them when you have a chance and let me know if anything needs to be corrected or clarified.\n\nPlease send any corrections by end of day Thursday so we can finalize and distribute the updated version.\n\nBest regards,\nSofia Martinez\nProduct Operations Manager"
+        }
+    },
+    {
+        "id": "community_event_volunteer_call",
+        "intent": "Invite volunteers to help at a community cleanup event",
+        "key_facts": [
+            "The cleanup is scheduled for Saturday from 9:00 AM to 12:00 PM",
+            "Volunteers should bring gloves and closed-toe shoes",
+            "Lunch and water will be provided"
+        ],
+        "tone": "Friendly, Encouraging and Appreciative",
+        "sender": "Community Outreach Organizer",
+        "recipient": "Local Volunteers",
+        "affiliation": "Riverside Neighborhood Association",
+        "reference_email": {
+            "subject": "Join Us for Saturday’s Community Cleanup",
+            "content": "Dear Local Volunteers,\n\nWe are excited to invite you to join the Riverside Neighborhood Association for our upcoming community cleanup event this Saturday from 9:00 AM to 12:00 PM.\n\nThis is a wonderful opportunity to come together, care for our neighborhood, and make a visible difference in our shared spaces. Whether you can help for the full morning or just part of the event, your time and effort will be greatly appreciated.\n\nThank you in advance for your support and community spirit. We hope to see you there!\n\nVolunteers are encouraged to bring gloves and wear closed-toe shoes for safety and comfort. Lunch and water will be provided for everyone participating.\n\nWarmly,\nCommunity Outreach Organizer\nRiverside Neighborhood Association"
+        }
+    },
+    {
+        "id": "anonymous_policy_notice",
+        "intent": "Announce an update to the office visitor policy",
+        "key_facts": [
+            "Visitors must now check in at the front desk",
+            "A government-issued photo ID is required for entry",
+            "The new policy starts on Monday"
+        ],
+        "tone": "formal and informative",
+        "reference_email": {
+            "subject": "Update: Office Visitor Policy Changes",
+            "content": "Dear Team,\n\nWe are updating our office visitor policy to help maintain a safe and secure workplace.\n\nStarting Monday, all visitors will be required to check in at the front desk upon arrival. Visitors must also present a government-issued photo ID before being granted entry.\n\nPlease ensure that any expected visitors are aware of this updated requirement in advance.\n\nThank you for your cooperation.\n\nSincerely,\n[Your Name]\n[Your Position], [Your Company]"
+        }
+    },
+    {
+        "id": "anonymous_service_outage_notice",
+        "intent": "Notify users about a temporary service outage",
+        "key_facts": [
+            "Maintenance will occur on Sunday from 1:00 AM to 3:00 AM",
+            "The portal may be unavailable during that window",
+            "Service is expected to resume immediately after maintenance"
+        ],
+        "tone": "brief, reassuring, and professional",
+        "reference_email": {
+            "subject": "Temporary Service Outage Notice",
+            "content": "Dear Users,\n\nPlease be advised that scheduled maintenance will take place on Sunday from 1:00 AM to 3:00 AM.\n\nDuring this maintenance window, the portal may be temporarily unavailable. We expect service to resume immediately after the maintenance is complete.\n\nThank you for your patience and understanding.\n\nSincerely,\n[Your Name]\n[Your Position], [Your Company]"
+        }
+    }
+]
