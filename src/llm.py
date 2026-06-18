@@ -16,10 +16,6 @@ def build_generation_llm(provider: ModelProvider = ModelProvider.GEMINI) -> Base
     raise ValueError(f"Unsupported model provider: {provider}")
 
 
-# def build_judge_llm(provider: ModelProvider = ModelProvider.GEMINI) -> BaseChatModel:
-#     return build_openai_judge_llm()
-
-
 def build_gemini_generation_llm() -> ChatGoogleGenerativeAI:
     load_dotenv()
     return ChatGoogleGenerativeAI(
