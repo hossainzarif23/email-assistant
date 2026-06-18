@@ -104,16 +104,9 @@ Scoring rules:
 - Return an integer score from 0 to 5.
 - Score should be an integer.
 - Do not reward quality outside this metric.
-- Score critically. A competent but ordinary email should usually be 3 or 4, not 5.
-- Use 5 only when the email fully satisfies the metric with no meaningful weakness.
 - Do not penalize valid paraphrasing.
 - Do not infer facts that are not present in the scenario or generated email.
 - Base the reason on concrete evidence.
-- For professional_structure, evaluate the actual subject and content formatting, not just whether the facts are present.
-- For professional_structure, a single-paragraph content field with inline greeting, body, closing, and signature must receive a low score, normally 1 or 2.
-- For professional_structure, a score of 5 requires distinct greeting, body paragraphing, closing, and signature formatting.
-- For tone_alignment, do not give 5 if the tone is merely acceptable but generic.
-- For fact_coverage, do not give 5 if any required fact is only implied, weakened, ambiguous, or mixed with unsupported detail.
 
 Return exactly one JSON object matching this schema:
 {{"score": 0, "reason": "string"}}

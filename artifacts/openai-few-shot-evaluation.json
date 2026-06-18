@@ -101,17 +101,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately: it asks for waiting instructions for the May 17 meeting at 11:00 A.M., names the attendees as Kenneth Lay, Marty Sunde, and Bob Williams, and clearly states the sender needs to know where they should wait or go when they arrive. No required fact is missing or distorted."
+          "reason": "The email includes all required facts accurately: it is about the May 17 meeting at 11:00 A.M., names Kenneth Lay, Marty Sunde, and Bob Williams, and asks for exact waiting instructions about where they should wait or go upon arrival. The sender is identified as Rosalee Fleming, Kenneth Lay's assistant, and the tone is concise, polite, and professional."
         },
         {
           "metric": "tone_alignment",
           "score": 5,
-          "reason": "The email closely and consistently matches the requested concise, polite, professional tone. It is brief, respectful, and direct, with a courteous request, a thank-you, and a formal closing/signature."
+          "reason": "The email is concise, polite, and professional throughout. It clearly asks for the exact waiting instructions, uses courteous phrasing (“Could you please,” “Thank you for your help”), and stays focused on the meeting-arrival details without unnecessary elaboration."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject, a distinct greeting, a focused body paragraph, a polite closing, and a separate signature line. It is well formatted and professionally structured with no meaningful formatting weaknesses."
+          "reason": "The email includes a clear subject line, a proper greeting (“Hi Sarah,”), a concise body that states the request clearly, and a distinct closing/sign-off (“Thank you for your help. / Best, / Rosalee Fleming”). It is well formatted and professional with the required email structure present."
         }
       ]
     },
@@ -121,17 +121,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "All required facts are included accurately: the meeting is for next week, the three proposed time slots are listed exactly, the recipients are asked to indicate their availability, and the schedule needing finalization soon is clearly stated."
+          "reason": "The email includes all required facts accurately: it says the meeting is next week, lists the three exact available time slots, asks the Project Team to reply with the option that works best so availability can be indicated, and states the schedule should be finalized soon. It also correctly identifies Alexis Tolmie as Project Manager at Nexus Corp."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is professional, concise, and collaborative throughout: it opens politely, clearly asks the project team to share availability, and closes with a prompt but courteous request. The tone matches the scenario well, though it is fairly standard and not especially nuanced or distinctive."
+          "score": 5,
+          "reason": "The email is professional, concise, and collaborative throughout. It clearly asks the Project Team to indicate availability for the proposed time slots and states the need to finalize the schedule soon, matching the requested tone closely and consistently."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject line, a distinct greeting, two readable body paragraphs, and a separate sign-off with sender and affiliation. The formatting is clean and professional with no meaningful structural weaknesses."
+          "reason": "The email includes a clear subject, a professional greeting, a well-structured body with bulleted time options, a direct request for availability, and a distinct sign-off with sender details. It is polished, concise, and easy to scan."
         }
       ]
     },
@@ -141,17 +141,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately: invoice 48217 was due on April 30, 2026, the outstanding amount is $3,450, and it asks for an update on the expected payment date. No required fact is missing, weakened, or contradicted."
+          "reason": "The email includes every required fact accurately: it references Invoice 48217, states it was due on April 30, 2026, notes the outstanding amount is $3,450, and asks for an update on the expected payment date. It also correctly identifies Nina Brooks, the Accounts Payable Team, and her role at Harborview Labs."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is polite and professional throughout, with a clear follow-up request and a courteous close. It is somewhat firm via the overdue-invoice subject and direct question, but the wording is more gentle than strongly firm, so it is mostly aligned rather than perfectly matched."
+          "score": 5,
+          "reason": "The email is firm, polite, and professional throughout: it clearly follows up on overdue invoice 48217, states the due date and outstanding amount, and respectfully asks for the expected payment date. The closing and signature also maintain a professional tone."
         },
         {
           "metric": "professional_structure",
-          "score": 4,
-          "reason": "The email is clearly professional and well structured overall: it has a relevant subject line, a greeting, a concise body, a closing, and a signature. The only minor weakness is that the body is presented as a single short block rather than being split into distinct body paragraphing, so it falls just short of fully polished formatting."
+          "score": 5,
+          "reason": "The email includes a clear subject line, a distinct greeting, a concise body with the invoice details and payment-date request, a polite closing, and a full signature. The structure is polished, easy to scan, and professionally formatted."
         }
       ]
     },
@@ -161,17 +161,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes every required fact accurately: it says the interview for the Software Engineer position at BrightPath Software Solutions was originally set for Tuesday at 2:00 PM, explains there is an unexpected conflict, offers Wednesday at 9:00 AM and Thursday at 3:00 PM as alternatives, notes the interview should take about 90 minutes, and asks Avery to confirm availability."
+          "reason": "All required facts are included accurately: the original interview was Tuesday at 2:00 PM, there is an interviewer conflict, alternatives of Wednesday 9:00 AM and Thursday 3:00 PM are offered, the role is Software Engineer at BrightPath Software Solutions, the interview is expected to last about 90 minutes, and the candidate is asked to confirm which time works best."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is professional, courteous, apologetic, and concise throughout. It clearly explains the conflict, proposes alternative times, and asks for confirmation. The only small mismatch is the informal greeting \"Hi Avery,\" which is slightly less formal than the requested tone."
+          "score": 5,
+          "reason": "The email is consistently professional, courteous, apologetic, and concise throughout. It politely explains the conflict, apologizes for the inconvenience, offers clear alternative times, and asks for confirmation without unnecessary detail."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email includes a clear subject line, a distinct greeting, separate body paragraphs, and a proper sign-off with signature. The formatting is polished and professional, with no meaningful structural weaknesses."
+          "reason": "The email is well-structured and polished: it includes a clear subject, a professional greeting, a concise body with the reason for rescheduling, the original interview time, the expected duration, two alternative time slots, and a direct request for confirmation. It also ends with an appropriate sign-off and signature."
         }
       ]
     },
@@ -180,18 +180,18 @@
       "metrics": [
         {
           "metric": "fact_coverage",
-          "score": 5,
-          "reason": "The email includes all required facts accurately: it states the early-bird deadline of September 10, 2025, the conference dates of October 22 to 24, 2025, the early-bird fee of $300 and regular fee of $400, and it clearly encourages recipients to register soon to secure the lower rate. The subject also matches the reminder purpose."
+          "score": 4,
+          "reason": "The email includes the early-bird deadline of September 10, 2025, the conference dates of October 22 to 24, 2025, the $300 early-bird fee versus the $400 regular fee, and a clear encouragement to register soon to secure the lower rate. The only missing key fact is the current date of September 5, 2025, so the coverage is almost complete."
         },
         {
           "metric": "tone_alignment",
           "score": 4,
-          "reason": "The email is informative and professional throughout, and it adds a mildly upbeat, encouraging tone with phrases like \"A friendly reminder\" and \"take advantage of the savings.\" It stays consistent overall, though the upbeat element is fairly light and generic rather than especially warm or energetic."
+          "reason": "The email is informative and professional, with a clear reminder, exact dates, and pricing details. It also has a mildly upbeat, encouraging tone through phrases like \"A quick reminder,\" \"you can secure the early-bird rate,\" and \"We encourage you to complete your registration soon,\" though it remains fairly straightforward rather than strongly upbeat."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject line, a distinct greeting, well-separated body paragraphs, and a proper sign-off with signature. It is polished, concise, and professionally formatted."
+          "reason": "The email includes a clear subject line, a distinct greeting, two well-separated body paragraphs, and a proper sign-off. The wording is concise and professional, with the conference dates and registration deadline clearly stated, and the affiliation included at the end."
         }
       ]
     },
@@ -201,17 +201,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "All required facts are present and accurately stated: the design review is delayed due to missing stakeholder feedback, it is now expected to finish by Friday, 19 June, 2026, and there is no change to the final launch date yet."
+          "reason": "The email includes all required facts accurately: it states the design review is expected to finish by Friday, 19 June, 2026, explains the delay was caused by missing stakeholder feedback, and says no change is needed to the final launch date yet. No required fact is missing or contradicted."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is transparent about the delay, calm in wording, and reassuring by stating there is no change to the launch date and that updates will follow if anything changes. It mostly matches the requested tone throughout, though it is fairly brief and generic rather than especially warm or strongly reassuring."
+          "score": 5,
+          "reason": "The email is transparent about the delay and its cause, calmly gives the updated completion date, reassures the recipient that the final launch date is unchanged, and maintains a steady, professional tone throughout."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject line, a distinct greeting, two well-separated body paragraphs, and a proper closing/sign-off with the sender name on separate lines. The structure is polished and professional with no meaningful formatting weaknesses."
+          "reason": "The email includes a clear subject line, a professional greeting, distinct body content with paragraphing, and a proper sign-off. It is concise, well structured, and easy to scan, matching the highest rubric level."
         }
       ]
     },
@@ -221,17 +221,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts: it states the meeting was about Q3 roadmap priorities, says the attached notes summarize the key decisions and action items, and asks recipients to send corrections by end of day Thursday. The facts are accurate and clearly presented with no meaningful omissions or distortions."
+          "reason": "All required facts are included accurately: the email states the meeting was about Q3 roadmap priorities, says the attached notes summarize the key decisions and action items, and asks for corrections by end of day Thursday. It also matches the sender and recipient context without adding unsupported claims."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is clear, organized, and professional throughout: it uses a polite greeting, concise summary of the Q3 roadmap notes, and a direct, courteous request for corrections by Thursday. It matches the requested tone well, though the phrasing is fairly standard and generic rather than especially polished or distinctive."
+          "score": 5,
+          "reason": "The email is clear, organized, and professional throughout. It directly states the meeting minutes are attached, summarizes the key decisions and action items, and politely requests corrections by end of day Thursday, matching the requested tone closely and consistently."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email is well structured with a clear subject, distinct greeting, a body split into separate paragraphs, and a proper closing/signature. It is polished, concise, and easy to scan, with all required elements present."
+          "reason": "The email includes a clear subject line, a distinct greeting, separate body paragraphs, and a proper sign-off with signature. It is well formatted and professional, matching the highest rubric level."
         }
       ]
     },
@@ -241,17 +241,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes every required fact accurately and naturally: it invites volunteers to a community cleanup on Saturday from 9:00 AM to 12:00 PM, asks them to bring gloves and closed-toe shoes, and states that lunch and water will be provided. It also matches the friendly, appreciative tone and identifies the sender and affiliation appropriately."
+          "reason": "All required facts are included accurately: the cleanup is on Saturday from 9:00 AM to 12:00 PM, volunteers are asked to bring gloves and closed-toe shoes, and lunch and water will be provided. The sender, recipient, and affiliation are also correctly stated."
         },
         {
           "metric": "tone_alignment",
           "score": 5,
-          "reason": "The email closely and consistently matches the requested friendly, encouraging, and appreciative tone. Phrases like \"We’re excited to invite you,\" \"your time and support would make a meaningful difference,\" \"we’d be very grateful,\" and \"Thank you\" reinforce a warm and appreciative invitation throughout."
+          "reason": "The email is consistently friendly, encouraging, and appreciative. Phrases like “We’d love your help,” “please bring gloves and closed-toe shoes,” and “we truly appreciate your support” match the requested tone well throughout, while clearly inviting volunteers to the cleanup event."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email is well structured with a clear subject, a distinct greeting, separate body paragraphs, a polite closing, and a complete signature. It is easy to scan and looks polished and professional."
+          "reason": "The email includes a clear subject line, a distinct greeting, well-separated body paragraphs, and a proper sign-off with the sender and affiliation. It is polished, concise, and professionally formatted."
         }
       ]
     },
@@ -261,17 +261,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "All required facts are present accurately: visitors must check in at the front desk, a government-issued photo ID is required for entry, and the new policy starts on Monday. The wording is clear and faithful to the scenario without distorting any required fact."
+          "reason": "The email includes all required facts accurately: it states the visitor policy is updated effective Monday, says visitors must check in at the front desk, and requires a government-issued photo ID for entry. The tone is formal and informative, and there are no unsupported factual claims."
         },
         {
           "metric": "tone_alignment",
           "score": 5,
-          "reason": "The email is consistently formal and informative: it uses professional phrasing ('Please be advised,' 'Under the new policy'), clearly presents the policy update, and maintains a respectful, businesslike tone throughout without informality or mismatches."
+          "reason": "The email is consistently formal and informative, matching the requested tone throughout. It clearly announces the policy update, states the front desk check-in and government-issued photo ID requirements, and notes the Monday effective date in a professional manner."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject, a distinct greeting, two well-separated body paragraphs, and a proper closing/signature. The structure is polished and professional, with no meaningful formatting issues."
+          "reason": "The email includes a clear subject, a formal greeting, distinct body paragraphs presenting the policy update and details, and a professional sign-off. The structure is polished, concise, and easy to scan."
         }
       ]
     },
@@ -281,25 +281,25 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "All required facts are stated accurately: maintenance is scheduled for Sunday from 1:00 AM to 3:00 AM, the portal may be unavailable during that window, and service is expected to resume immediately after maintenance. No required fact is missing or contradicted."
+          "reason": "The email includes all required facts accurately: maintenance is scheduled on Sunday from 1:00 AM to 3:00 AM, the portal may be unavailable during that window, and service is expected to resume immediately after maintenance. It is also brief, reassuring, and professional."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is brief, professional, and reassuring in a clear way: it states the maintenance window, notes the portal may be unavailable, and closes with a polite thanks. The tone is consistently appropriate, though fairly standard and not especially warm or strongly reassuring, so it fits mostly well but not perfectly."
+          "score": 5,
+          "reason": "The email is brief, professional, and reassuring throughout. It clearly and calmly states the maintenance window, notes the portal may be unavailable, and reassures that service is expected to resume immediately after maintenance, which closely matches the requested tone."
         },
         {
           "metric": "professional_structure",
           "score": 5,
-          "reason": "The email has a clear subject line, a distinct greeting, separated body paragraphs, and a proper sign-off with signature placeholder. It is well-formatted and professional with no meaningful structural weaknesses."
+          "reason": "The email includes a clear subject line, a distinct greeting, separate body paragraphs, and a professional sign-off. It is well formatted, brief, and easy to scan, matching the rubric for a polished professional email."
         }
       ]
     }
   ],
   "metric_averages": {
-    "fact_coverage": 5.0,
-    "tone_alignment": 4.3,
-    "professional_structure": 4.9
+    "fact_coverage": 4.9,
+    "tone_alignment": 4.9,
+    "professional_structure": 5.0
   },
-  "overall_average": 4.733333333333333
+  "overall_average": 4.933333333333334
 }

@@ -1,90 +1,103 @@
 # Evaluation Metrics
 
-The evaluation pipeline uses three separate LLM-as-judge prompts. Each prompt is narrowly scoped to one dimension so the judges do not blur multiple concerns into a single score.
+The evaluation pipeline runs one provider and one prompt strategy per output file. The CLI options are:
 
-All three judges follow the same output contract:
+- `--provider gemini` or `--provider openai`
+- `--strategy structured` or `--strategy few_shot`
 
-- return JSON only
-- return `score` and `reason`
-- score on a 0-5 scale
-- keep the reason short and specific
+Each run loads scenarios from `data/scenarios.json`, generates one email per selected scenario, runs three LLM-as-judge metrics, and writes one JSON report with this top-level shape:
 
-## Why Separate Judges
+```json
+{
+  "source_file": "data/scenarios.json",
+  "provider": "gemini",
+  "strategy": "structured",
+  "metric_definitions": [],
+  "results": [],
+  "metric_averages": {},
+  "overall_average": 0.0
+}
+```
 
-A single broad judge often mixes factual coverage, tone, and structure into one opinion. That creates metric bleed and makes it hard to tell whether a prompt helped with facts, style, or formatting.
+`metric_definitions` contains exactly three objects with `metric`, `definition`, and `rubric`. The rubric is the scoring logic. `results` contains one object per scenario with `scenario_id` and a `metrics` array. Each metric result has `metric`, `score`, and `reason`.
 
-Separate judges reduce that problem because:
+## Judge Contract
 
-- each prompt states exactly one rubric
-- each score is interpreted against one dimension only
-- the resulting averages are easier to compare across strategies
+The evaluator builds one judge prompt per metric. Each judge receives:
+
+- the scenario data: `intent`, `key_facts`, `tone`, plus optional `sender`, `recipient`, and `affiliation`
+- the generated email data: `subject` and `content`
+- the metric-specific rubric
+
+Each judge must return exactly one JSON object:
+
+```json
+{"score": 0, "reason": "string"}
+```
+
+The shared scoring rules in `src/prompts.py` are:
+
+- Return an integer score from 0 to 5.
+- Score should be an integer.
+- Do not reward quality outside this metric.
+- Score critically. A competent but ordinary email should usually be 3 or 4, not 5.
+- Use 5 only when the email fully satisfies the metric with no meaningful weakness.
+- Do not penalize valid paraphrasing.
+- Do not infer facts that are not present in the scenario or generated email.
+- Base the reason on concrete evidence.
+- For `professional_structure`, evaluate the actual subject and content formatting, not just whether the facts are present.
+- For `professional_structure`, a single-paragraph content field with inline greeting, body, closing, and signature must receive a low score, normally 1 or 2.
+- For `professional_structure`, a score of 5 requires distinct greeting, body paragraphing, closing, and signature formatting.
+- For `tone_alignment`, do not give 5 if the tone is merely acceptable but generic.
+- For `fact_coverage`, do not give 5 if any required fact is only implied, weakened, ambiguous, or mixed with unsupported detail.
+
+## Aggregation
+
+For each metric, the evaluator averages that metric's scores across the scenarios in the run. `overall_average` is the mean of the three metric averages.
+
+If no scenarios are selected, each metric average is `0.0` and `overall_average` is `0.0`.
 
 ## Metric 1: Fact Coverage
 
-Purpose: verify that every required fact appears naturally and accurately.
+Metric key: `fact_coverage`
 
-What the judge should consider:
+Definition: Measures whether the generated email includes all required key facts accurately and naturally.
 
-- whether the required facts are present
-- whether any required fact is contradicted
-- whether the email adds unsupported factual claims that change meaning
+Rubric:
 
-Scoring guide:
-
-- 0: facts are ignored or contradicted
-- 1: only a tiny fragment of a fact appears
-- 2: some facts are present, but multiple important facts are missing or distorted
-- 3: most facts are present, but one or two important fact is missing, weakened, or ambiguous
-- 4: almost all facts are present with only minor omission or awkwardness
-- 5: all required facts are present accurately and naturally, with no unsupported factual claims
+- 0: The email ignores the required facts or contradicts them.
+- 1: Only a tiny fragment of one required fact appears.
+- 2: Some facts are present, but multiple important facts are missing or distorted.
+- 3: Most facts are present, but one important fact is missing, weakened, or ambiguous.
+- 4: Almost all required facts are present, with only a minor omission or awkward compression.
+- 5: Every required fact is included accurately and naturally, with no unsupported factual claims.
 
 ## Metric 2: Tone Alignment
 
-Purpose: judge whether the email matches the requested tone.
+Metric key: `tone_alignment`
 
-What the judge should consider:
+Definition: Measures whether the generated email matches the requested tone in context.
 
-- warmth, directness, politeness, urgency, or other requested tonal cues
-- whether the tone stays consistent across the email
-- whether the tone suits the scenario context
+Rubric:
 
-Scoring guide:
+- 0: The tone is absent, opposite of the requested tone, or unusable for the context.
+- 1: The tone is very far from the requested tone.
+- 2: The tone only loosely resembles the requested tone and is noticeably mismatched.
+- 3: The tone is partly aligned but generic, uneven, or inconsistent.
+- 4: The tone is mostly aligned with only small mismatches.
+- 5: The tone closely and consistently matches the requested tone throughout.
 
-- 0: tone is opposite of the request
-- 1: tone is very far from the request
-- 2: tone only loosely resembles the request and is noticeably mismatched
-- 3: tone is partly aligned but generic or inconsistent
-- 4: tone is mostly aligned with small mismatches
-- 5: tone closely and consistently matches the request throughout
+## Metric 3: Professional Email Structure
 
-## Metric 3: Professional Email Structure (`professional_structure`)
+Metric key: `professional_structure`
 
-Purpose: judge whether the output is structured like a useful professional email.
+Definition: Measures whether the output works as a professional email.
 
-What the judge should consider:
+Rubric:
 
-- subject relevance
-- greeting and closing quality
-- organization and readability
-- conciseness and clarity
-- grammar and overall polish
-
-Scoring guide:
-
-- 0: not usable as an email
-- 1: barely resembles a professional email and lacks multiple major elements
-- 2: some email elements are present, but structure is incomplete or hard to follow
-- 3: basic email structure is present, but organization or formatting is noticeably weak
-- 4: well structured with only minor rough edges
-- 5: subject and body are polished, clear, complete, and appropriate for a professional email
-
-## Judge Prompt Pattern
-
-Each metric uses its own prompt with:
-
-- the scenario data
-- the generated email data
-- a metric-specific rubric
-- a JSON-only response requirement
-
-The prompt explicitly tells the judge not to evaluate the other two metrics.
+- 0: The output is not usable as an email.
+- 1: It barely resembles a professional email or collapses greeting, body, closing, and signature into a flat single paragraph.
+- 2: Some email elements are present, but structure is incomplete, hard to scan, or mostly unformatted.
+- 3: Basic email content is present, but paragraphing, greeting, body, or sign-off formatting is noticeably weak.
+- 4: The email is clear and professional with only minor structure or formatting rough edges.
+- 5: The subject and body are polished, clear, concise, and formatted with distinct greeting, body paragraphing, and sign-off.

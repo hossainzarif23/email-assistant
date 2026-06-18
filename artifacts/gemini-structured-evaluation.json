@@ -101,17 +101,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and naturally, including the date, time, specific attendees, and the request for waiting instructions. The tone is professional and concise, and the structure is well-formatted with a clear greeting, body, and closing."
+          "reason": "The email includes all required facts, including the date, time, the list of attendees, and the specific request for waiting instructions, all presented accurately and professionally."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is concise, polite, and professional, effectively communicating the request. It avoids unnecessary fluff, though the tone is standard and functional rather than exceptional, which prevents a 5."
+          "score": 5,
+          "reason": "The email is concise, polite, and professional. It clearly communicates the purpose of the message, includes all necessary details, and maintains a respectful tone throughout."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "While the email contains all necessary information and maintains a professional tone, it fails to use proper formatting. The greeting, body, closing, and signature are all contained within a single paragraph, which makes it difficult to scan and violates the requirement for distinct structural elements."
+          "score": 3,
+          "reason": "The email contains all necessary information and maintains a professional tone, but it is formatted as a single block of text without line breaks between the greeting, body, and sign-off, which negatively impacts readability and professional structure."
         }
       ]
     },
@@ -121,17 +121,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and naturally, with no omissions or unsupported claims."
+          "reason": "The email includes all required facts: the meeting is for next week, lists all three specific time slots, asks for availability, and mentions the need to finalize the schedule soon. The tone is professional and concise."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is professional, concise, and collaborative, clearly communicating the meeting requirements and requesting input. It is well-aligned with the requested tone, though the phrasing is somewhat generic, which prevents it from being exceptional."
+          "score": 5,
+          "reason": "The email is professional, concise, and collaborative. It clearly communicates the purpose, lists all required time slots, and invites team input while maintaining a polite and efficient tone throughout."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email contains all necessary information, but it is formatted as a single paragraph, which makes it difficult to scan and fails to meet the professional structure requirement of distinct greeting, body, and signature sections."
+          "score": 3,
+          "reason": "The email contains all necessary information and maintains a professional tone, but it is presented as a single block of text without line breaks between the greeting, body, and sign-off, which hinders readability and professional formatting."
         }
       ]
     },
@@ -141,17 +141,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and naturally, with no unsupported claims or ambiguity."
+          "reason": "The email includes all required facts: invoice number 48217, the due date of April 30, 2026, the outstanding amount of $3,450, and a request for an update on the payment date. The tone is professional and firm, and all sender details are correctly included."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is professional, polite, and firm, effectively communicating the overdue status of the invoice. It is well-aligned with the requested tone, though it remains a standard business communication rather than an exceptional example, which aligns with the rubric's guidance to reserve a 5 for non-generic quality."
+          "score": 5,
+          "reason": "The email perfectly balances a firm tone regarding the overdue payment with a polite and professional delivery. It clearly states all necessary facts, including the invoice number, due date, and amount, while maintaining a respectful and business-appropriate demeanor throughout."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email contains all necessary information, but the content is presented as a single paragraph, failing to use distinct line breaks for the greeting, body, and sign-off as required for a professional structure."
+          "score": 1,
+          "reason": "The email contains all necessary information but collapses the greeting, body, and sign-off into a single paragraph, which makes it difficult to read and fails to follow standard professional email formatting."
         }
       ]
     },
@@ -161,17 +161,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and clearly, including the original interview time, the reason for rescheduling, the proposed alternative times, the position and company details, the expected duration, and a request for confirmation."
+          "reason": "The email includes every required fact accurately and naturally, while maintaining the requested professional, apologetic, and concise tone."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email successfully maintains a professional, courteous, and apologetic tone throughout. It is concise and clearly communicates the required information. It does not receive a 5 because the single-paragraph structure detracts from the overall professional presentation, making the tone feel slightly less polished than it could be with proper formatting."
+          "score": 5,
+          "reason": "The email includes all required facts, maintains a professional and courteous tone, expresses a sincere apology for the inconvenience, and is concise, perfectly aligning with the requested tone."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email fails to use proper paragraphing or line breaks, resulting in a single block of text that includes the greeting, body, and closing. This lack of formatting makes the email difficult to scan and does not meet the professional structure requirements."
+          "score": 1,
+          "reason": "The email contains all the required information, but it is presented as a single, flat paragraph, which collapses the greeting, body, and sign-off into one block of text, making it difficult to scan."
         }
       ]
     },
@@ -181,17 +181,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and naturally, including the conference dates, the early-bird deadline, both registration fees, and the encouragement to register early, with no unsupported claims."
+          "reason": "The email accurately includes all required facts, including the conference dates, the early-bird deadline, both registration fees, and the encouragement to register early, all while maintaining the requested tone."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email successfully maintains an informative, upbeat, and professional tone throughout. It effectively balances the urgency of the deadline with a welcoming and encouraging message. It is not a 5 because the phrasing is somewhat standard and generic, rather than uniquely engaging."
+          "score": 5,
+          "reason": "The email perfectly balances an informative, upbeat, and professional tone. It clearly presents all required facts while maintaining a polite and encouraging demeanor that aligns with the requested tone."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email contains all necessary information, but the structure is poor because the greeting, body, and closing are collapsed into a single paragraph, making it difficult to read and scan."
+          "score": 5,
+          "reason": "The email is well-structured, professional, and clear. It includes all necessary information, uses appropriate greeting and sign-off, and maintains a positive, informative tone."
         }
       ]
     },
@@ -201,17 +201,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email accurately includes all three required facts: the new design review completion date, the reason for the delay, and the status of the final launch date. The tone is professional, calm, and reassuring, and the structure is well-organized with distinct sections."
+          "reason": "The email accurately includes all three required facts: the new design review completion date of Friday, 19 June, 2026, the reason for the delay being missing stakeholder feedback, and the confirmation that the final launch date remains unchanged. The tone is professional, calm, and reassuring."
         },
         {
           "metric": "tone_alignment",
           "score": 5,
-          "reason": "The email is transparent about the delay and its cause, maintains a calm and professional demeanor, and provides clear reassurance regarding the final launch date. The tone is consistent and perfectly aligned with the requested requirements."
+          "reason": "The email is transparent about the delay and its cause, maintains a calm and professional tone, and provides clear reassurance regarding the final launch date, perfectly aligning with the requested tone."
         },
         {
           "metric": "professional_structure",
           "score": 2,
-          "reason": "The email lacks proper professional structure as it presents the greeting, body, and closing in a single, continuous paragraph. This makes the content harder to scan and fails to meet the requirement for distinct formatting of email sections."
+          "reason": "The email contains all necessary information and maintains a professional tone, but it is formatted as a single paragraph, making it difficult to scan and lacking proper professional structure."
         }
       ]
     },
@@ -220,18 +220,18 @@
       "metrics": [
         {
           "metric": "fact_coverage",
-          "score": 4,
-          "reason": "The email accurately includes all required facts, including the Q3 roadmap priorities, the summary of decisions and action items in the attachment, and the Thursday deadline for corrections. It is a competent and clear communication, though it does not exceed expectations to warrant a perfect score."
+          "score": 5,
+          "reason": "The email includes all required facts: it mentions the Q3 roadmap priorities, notes the attached summary of decisions and action items, and clearly requests corrections by the end of the day Thursday."
         },
         {
           "metric": "tone_alignment",
-          "score": 3,
-          "reason": "The tone is professional and clear, effectively conveying the necessary information. However, it is quite generic and lacks a distinct, polished professional voice, and the lack of proper paragraphing detracts from the overall organized presentation."
+          "score": 5,
+          "reason": "The email is clear, concise, and maintains a professional tone throughout. It effectively communicates the purpose and the deadline, aligning perfectly with the requested tone and intent."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email contains all necessary information, but it is formatted as a single paragraph with the greeting, body, closing, and signature all inline, which fails to meet the professional structure requirement for distinct formatting."
+          "score": 3,
+          "reason": "The email contains all necessary information and maintains a professional tone, but it is presented as a single block of text without proper line breaks between the greeting, body, and sign-off, which hinders readability."
         }
       ]
     },
@@ -241,17 +241,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and naturally, with no unsupported claims or ambiguities."
+          "reason": "The email includes all required facts, including the date and time, the equipment requirements, and the provision of lunch and water, while maintaining the requested friendly and appreciative tone."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email successfully maintains a friendly, encouraging, and appreciative tone throughout, using positive language to motivate volunteers. While it is well-aligned with the requested tone, it feels somewhat standard and generic, which prevents it from reaching the highest score."
+          "score": 5,
+          "reason": "The email consistently maintains a friendly, encouraging, and appreciative tone throughout, effectively inviting volunteers while expressing genuine gratitude for their contributions."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email lacks proper paragraphing and line breaks, resulting in a single block of text that includes the greeting, body, closing, and signature. This makes it difficult to scan and fails to meet the professional structure requirement for distinct formatting."
+          "score": 3,
+          "reason": "The email contains all the necessary information and maintains a professional tone, but it lacks proper paragraphing, resulting in a single block of text that is difficult to scan."
         }
       ]
     },
@@ -261,17 +261,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all three required facts accurately and clearly, with no ambiguity or unsupported details, and maintains a formal and informative tone."
+          "reason": "The email includes all three required facts accurately and naturally, and maintains the requested formal and informative tone."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email maintains a formal and informative tone throughout, using professional language that clearly communicates the policy changes. While it is well-aligned with the requested tone, it follows a standard professional template rather than demonstrating a unique or exceptional stylistic quality."
+          "score": 5,
+          "reason": "The email maintains a professional and formal tone throughout, clearly communicating all required policy updates without unnecessary informality."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "While the email contains all the required facts and maintains a formal tone, it fails to use proper professional formatting. The greeting, body, closing, and signature are all collapsed into a single paragraph, which makes the email difficult to scan and violates the requirement for distinct structural elements."
+          "score": 3,
+          "reason": "The email contains all necessary information, but the formatting is weak because the greeting, body, and sign-off are collapsed into a single paragraph rather than using distinct line breaks for professional readability."
         }
       ]
     },
@@ -281,25 +281,25 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "The email includes all required facts accurately and clearly, specifying the maintenance window, the potential portal unavailability, and the expected service resumption time without any unsupported claims or ambiguity."
+          "reason": "The email accurately includes all required facts: the maintenance window of Sunday from 1:00 AM to 3:00 AM, the potential portal unavailability, and the expectation that services will resume immediately after. The tone is professional and brief."
         },
         {
           "metric": "tone_alignment",
-          "score": 4,
-          "reason": "The email is brief, professional, and clearly communicates the necessary information. It maintains a consistent tone throughout, though it is somewhat generic in its phrasing, which prevents it from being exceptional."
+          "score": 5,
+          "reason": "The email is concise, professional, and clearly communicates the maintenance window and expected service resumption, perfectly matching the requested tone."
         },
         {
           "metric": "professional_structure",
-          "score": 2,
-          "reason": "The email lacks proper professional structure. The greeting, body, closing, and signature are all contained within a single paragraph, which makes the content difficult to scan and fails to meet the requirement for distinct formatting."
+          "score": 3,
+          "reason": "The email contains all necessary information, but it lacks proper line breaks between the greeting, body, and sign-off, causing it to appear as a single paragraph, which hinders readability and professional formatting."
         }
       ]
     }
   ],
   "metric_averages": {
-    "fact_coverage": 4.9,
-    "tone_alignment": 4.0,
-    "professional_structure": 2.0
+    "fact_coverage": 5.0,
+    "tone_alignment": 5.0,
+    "professional_structure": 2.7
   },
-  "overall_average": 3.6333333333333333
+  "overall_average": 4.233333333333333
 }
