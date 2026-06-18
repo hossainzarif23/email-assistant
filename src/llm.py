@@ -55,9 +55,3 @@ def build_openai_judge_llm() -> ChatOpenAI:
         max_tokens=32768,
         reasoning={"effort": "medium"},
     )
-
-
-# def openai_sampling_kwargs(model_name: str, top_p: float) -> dict[str, float]:
-#     if model_name.startswith("gpt-5") or model_name.startswith("o"):
-#         return {}
-#     return {"top_p": top_p}
