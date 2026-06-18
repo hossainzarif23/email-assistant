@@ -101,17 +101,17 @@
         {
           "metric": "fact_coverage",
           "score": 5,
-          "reason": "All required facts are present and accurate: the meeting is on May 17 at 11:00 A.M., the attendees are Kenneth Lay, Marty Sunde, and Bob Williams, and the sender asks where they should wait or go when they arrive. The email is concise, polite, and professional, with no unsupported factual claims."
+          "reason": "The email includes all required facts accurately: the May 17 meeting at 11:00 A.M., the attendees Kenneth Lay, Marty Sunde, and Bob Williams, and the request for exact instructions on where they should wait or go upon arrival. It also matches the sender information and maintains a concise, polite, professional tone."
         },
         {
           "metric": "tone_alignment",
           "score": 5,
-          "reason": "The email is concise, polite, and professional throughout. It directly asks for the waiting instructions for the May 17 meeting using respectful language such as 'Could you please' and 'Thank you for your assistance,' which matches the requested tone closely."
+          "reason": "The email is concise, polite, and professional throughout. It clearly and directly asks for the waiting instructions for the May 17 meeting, matching the requested tone with no noticeable mismatches."
         },
         {
           "metric": "professional_structure",
-          "score": 3,
-          "reason": "The email includes a subject, greeting, body, and sign-off, and it is polite and professional. However, the content is formatted as one continuous paragraph rather than having distinct body paragraphing, so the structure is present but noticeably weak."
+          "score": 4,
+          "reason": "The email includes a clear subject line, a professional greeting, a concise request, and a proper sign-off with signature. It is well formatted overall, but the body is a single paragraph rather than having distinct body paragraphing, so it falls just short of a polished 5."
         }
       ]
     }
@@ -119,7 +119,7 @@
   "metric_averages": {
     "fact_coverage": 5.0,
     "tone_alignment": 5.0,
-    "professional_structure": 3.0
+    "professional_structure": 4.0
   },
-  "overall_average": 4.333333333333333
+  "overall_average": 4.666666666666667
 }

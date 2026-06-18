@@ -101,15 +101,13 @@ def test_run_judges_scores_once_per_metric(monkeypatch: pytest.MonkeyPatch) -> N
 
             return _Runnable()
 
-    def fake_build_judge_llm(provider: ModelProvider) -> _FakeJudgeModel:
-        observed["provider"] = provider
+    def fake_build_openai_judge_llm() -> _FakeJudgeModel:
         return _FakeJudgeModel()
 
-    monkeypatch.setattr(evaluation_module, "build_judge_llm", fake_build_judge_llm)
+    monkeypatch.setattr(evaluation_module, "build_openai_judge_llm", fake_build_openai_judge_llm)
 
-    results = evaluation_module.run_judges(scenario, email, ModelProvider.OPENAI)
+    results = evaluation_module.run_judges(scenario, email)
 
-    assert observed["provider"] is ModelProvider.OPENAI
     assert observed["kwargs"] == {"method": "function_calling"}
     assert [result.metric for result in results] == list(MetricName)
     assert all(result.score == 5 for result in results)
@@ -135,17 +133,15 @@ def test_run_judges_uses_default_structured_path_without_injected_judge(monkeypa
 
             return _Runnable()
 
-    def fake_build_judge_llm(provider: ModelProvider) -> _FakeJudgeModel:
+    def fake_build_openai_judge_llm() -> _FakeJudgeModel:
         observed["built"] = True
-        observed["provider"] = provider
         return _FakeJudgeModel()
 
-    monkeypatch.setattr(evaluation_module, "build_judge_llm", fake_build_judge_llm)
+    monkeypatch.setattr(evaluation_module, "build_openai_judge_llm", fake_build_openai_judge_llm)
 
     results = evaluation_module.run_judges(scenario, email)
 
     assert observed["built"] is True
-    assert observed["provider"] is ModelProvider.GEMINI
     assert observed["schema"] is JudgeScore
     assert observed["kwargs"] == {"method": "function_calling"}
     assert len(observed["prompts"]) == 3
@@ -260,7 +256,7 @@ def test_run_evaluation_uses_selected_scenarios_strategy_and_provider(monkeypatc
         ("prompt:alpha:few_shot", ModelProvider.OPENAI),
     ]
     assert judged_calls == [
-        ("alpha:alpha:few_shot", ModelProvider.OPENAI),
+        ("alpha:alpha:few_shot", ModelProvider.GEMINI),
     ]
     assert report.metric_averages == {
         MetricName.FACT_COVERAGE: pytest.approx(5.0),

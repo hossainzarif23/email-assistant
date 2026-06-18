@@ -21,7 +21,7 @@ OPENAI_API_KEY=your_openai_api_key
 OPENAI_MODEL=gpt-5.4-mini
 ```
 
-Only set the API key for the provider you plan to use. `GEMINI_MODEL` and `OPENAI_MODEL` are optional and default to the models shown above.
+Only set the API key for the provider you plan to use. `GEMINI_MODEL` and `OPENAI_MODEL` are optional and default to the models shown above. The judge model is fixed to `gpt-5.4-mini`, so `OPENAI_MODEL` only affects OpenAI generation.
 
 ## Testing
 

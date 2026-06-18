@@ -5,7 +5,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 
 import src.llm as llm_module
-from src.llm import build_generation_llm, build_judge_llm
+from src.llm import build_generation_llm, build_openai_judge_llm
 from src.models import ModelProvider
 
 
@@ -29,13 +29,12 @@ def test_build_generation_llm_uses_env_model_and_generation_settings(monkeypatch
     assert dumped["thinking_level"] == "medium"
 
 
-def test_build_judge_llm_uses_env_model_and_judge_settings(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_build_openai_judge_llm_uses_env_model_and_judge_settings(monkeypatch: pytest.MonkeyPatch) -> None:
     calls: list[bool] = []
     monkeypatch.setattr(llm_module, "load_dotenv", lambda: calls.append(True))
-    monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
 
-    model = build_judge_llm(ModelProvider.GEMINI)
+    model = build_openai_judge_llm()
 
     assert isinstance(model, ChatOpenAI)
     assert calls == [True]
@@ -62,18 +61,18 @@ def test_build_generation_llm_supports_openai_provider(monkeypatch: pytest.Monke
     assert dumped["model_name"] == "gpt-4.1"
     assert dumped["openai_api_key"].get_secret_value() == "test-key"
     assert dumped["temperature"] == 0.7
-    assert dumped["top_p"] == 0.95
+    assert dumped["top_p"] is None
     assert dumped["max_tokens"] == 32768
     assert dumped["reasoning"] == {"effort": "medium"}
 
 
-def test_build_judge_llm_supports_openai_provider(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_build_openai_judge_llm_ignores_openai_model_env(monkeypatch: pytest.MonkeyPatch) -> None:
     calls: list[bool] = []
     monkeypatch.setattr(llm_module, "load_dotenv", lambda: calls.append(True))
     monkeypatch.setenv("OPENAI_MODEL", "gpt-4.1")
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
 
-    model = build_judge_llm(ModelProvider.OPENAI)
+    model = build_openai_judge_llm()
 
     assert isinstance(model, ChatOpenAI)
     assert calls == [True]
